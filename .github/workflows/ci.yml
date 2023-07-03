@@ -20,11 +20,13 @@ jobs:
       - run: flutter analyze
       - run: flutter test
       - run: flutter build apk --debug --split-per-abi
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/app/outputs/apk/debug/*"
-          tag: v1.0.$"{{ github.run_number }}"
+
+      #- #name: Push to Releases
+        #uses: ncipollo/release action@v1
+       # with:
+       #   artifacts: "build/app/outputs/apk/debug/*"
+       #   tag: v1.0.$"{{ github.run_number }}"
+
           # not to forget build a secrect token
 
 
