@@ -1,7 +1,8 @@
+import 'package:boarded/core/common/snackbars.dart';
 import 'package:boarded/core/providers/firebase_providers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -15,6 +16,7 @@ final authRepositoryProvider = Provider(
 );
 
 class AuthRepository {
+  // ignore: unused_field
   final FirebaseFirestore _firestore;
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
@@ -33,21 +35,16 @@ class AuthRepository {
     required BuildContext context,
   }) async {
     try {
-      print(emailAddress);
-      print(password);
+      // ignore: unused_local_variable
       final credential = await _auth.createUserWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
+      showErrorSnackBar(context, e.message!);
     }
+    // ignore: use_build_context_synchronously
+    showSuccessSnackBar(context, "Seccess!");
   }
 
   void signInWithGoogle() async {
@@ -63,7 +60,8 @@ class AuthRepository {
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
 
-      print(userCredential.user?.email);
+      // ignore: avoid_print
+      print(userCredential.user?.email); // just for testing
     } catch (e) {}
   }
 }

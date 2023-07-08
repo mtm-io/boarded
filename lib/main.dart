@@ -1,10 +1,8 @@
 import 'package:boarded/router.dart';
 import 'package:boarded/utils/pallete.dart';
-import 'package:go_router/go_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
