@@ -8,4 +8,11 @@ class Pallete {
   static const whiteColor = Colors.white;
   static var redColor = Colors.red.shade500;
   static var blueColor = Colors.blue.shade300;
+
+  static final darkTheme = ThemeData.dark().copyWith(
+    colorScheme: const ColorScheme.dark().copyWith(
+      primary: Colors.blue,
+      secondary: Colors.blueAccent,
+    ),
+  );
 }

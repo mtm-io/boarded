@@ -16,4 +16,15 @@ class AuthController {
       : _authRepository = authRepository;
 
   void signInWithGoogle() => _authRepository.signInWithGoogle();
+
+  void createUserWithEmailAndPassword({
+    required String emailAddress,
+    required String password,
+    required BuildContext context,
+  }) =>
+      _authRepository.createUserWithEmailAndPassword(
+        emailAddress: emailAddress,
+        password: password,
+        context: context,
+      );
 }
