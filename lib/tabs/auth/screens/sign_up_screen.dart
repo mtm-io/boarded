@@ -1,19 +1,17 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:boarded/core/common/google_auth_button.dart';
 import 'package:boarded/tabs/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpPage extends ConsumerStatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _SignUpPageState extends ConsumerState<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -24,8 +22,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
-  void signInWithEmailAndPassword(WidgetRef ref, BuildContext context) =>
-      ref.read(authControllerProvider).signInWithEmailAndPassword(
+  void createUserWithEmailAndPassword(WidgetRef ref, BuildContext context) =>
+      ref.read(authControllerProvider).createUserWithEmailAndPassword(
             emailAddress: _emailController.text,
             password: _passwordController.text,
             context: context,
@@ -34,11 +32,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Loggin Screen")),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
               controller: _emailController,
@@ -49,22 +48,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             const SizedBox(height: 16.0),
             TextField(
               controller: _passwordController,
+              obscureText: true,
               decoration: const InputDecoration(
-                hintText: "Password",
                 labelText: 'Password',
               ),
             ),
-            const SizedBox(height: 16.0),
-            const SignInButton(),
+            const SizedBox(height: 32.0),
             ElevatedButton(
-              onPressed: () => signInWithEmailAndPassword(ref, context),
-              child: const Text("Log in"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                return context.go('/login/signin');
-              },
-              child: const Text("Sign in"),
+              onPressed: () => createUserWithEmailAndPassword(ref, context),
+              child: const Text('Sign Up'),
             ),
           ],
         ),

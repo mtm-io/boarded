@@ -4,9 +4,13 @@ import 'package:boarded/utils/pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// just a Google Auth Button
 class SignInButton extends ConsumerWidget {
   const SignInButton({Key? key}) : super(key: key);
 
+  /// reads value from authControllerProvider
+  /// that is actually a AuthController class and provides
+  /// signInWithGoogle function
   void signInWithGoogle(WidgetRef ref) =>
       ref.read(authControllerProvider).signInWithGoogle();
 
