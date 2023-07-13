@@ -34,6 +34,9 @@ class AuthController {
   /// Provides SignOut Function
   ///
   void signOut() => _authRepository.signOut();
+
+  ///
+
   Stream<User?> get authStateChange {
     return _authRepository.authStateChange;
   }

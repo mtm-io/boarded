@@ -93,7 +93,7 @@ class AuthRepository {
   ///
   ///
 
-  void signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
