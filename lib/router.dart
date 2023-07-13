@@ -1,10 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:boarded/tabs/profile/screens/profile.dart';
+import 'package:boarded/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:boarded/tabs/auth/screens/sign_in_screen.dart';
 import 'package:boarded/tabs/auth/screens/sign_up_screen.dart';
-import 'package:boarded/tabs/home/screens/home_screen.dart';
 
 class AppRouter {
   /// a Property that comes from the Stream in main.dart
@@ -23,14 +22,7 @@ class AppRouter {
           /// home route
           path: '/',
           builder: (BuildContext context, GoRouterState state) {
-            return const HomePage();
-          }),
-      GoRoute(
-
-          /// profile  route
-          path: '/profile',
-          builder: (BuildContext context, GoRouterState state) {
-            return ProfilePage();
+            return const BottomNavigator();
           }),
       GoRoute(
           path: '/login',
