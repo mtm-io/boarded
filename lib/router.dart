@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:boarded/tabs/profile/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:boarded/tabs/auth/screens/sign_in_screen.dart';
@@ -23,6 +24,13 @@ class AppRouter {
           path: '/',
           builder: (BuildContext context, GoRouterState state) {
             return const HomePage();
+          }),
+      GoRoute(
+
+          /// profile  route
+          path: '/profile',
+          builder: (BuildContext context, GoRouterState state) {
+            return ProfilePage();
           }),
       GoRoute(
           path: '/login',
