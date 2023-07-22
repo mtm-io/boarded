@@ -31,15 +31,17 @@ class MyApp extends ConsumerWidget {
     return authStateStream.when(
       /// data is a User class
       /// that is present when the user is logged in
-      data: (data) => MaterialApp.router(
-        theme: Pallete.darkTheme,
-        debugShowCheckedModeBanner: false,
+      data: (data) {
+        return MaterialApp.router(
+          theme: Pallete.darkTheme,
+          debugShowCheckedModeBanner: false,
 
-        /// when data is null it means that there is no logged in user
-        /// opposite data != null => user is logged in
-        /// p.s. check class AppRouter in roter.dart
-        routerConfig: AppRouter(isAuth: data != null ? true : false).router,
-      ),
+          /// when data is null it means that there is no logged in user
+          /// opposite data != null => user is logged in
+          /// p.s. check class AppRouter in roter.dart
+          routerConfig: AppRouter(isAuth: data != null ? true : false).router,
+        );
+      },
 
       /// error when the Stream returns an error
       error: (error, stackTrace) => Text(error.toString()),
