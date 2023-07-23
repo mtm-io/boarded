@@ -26,34 +26,33 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 110,
-            ),
-            Transform.rotate(
-              angle: 0.08,
-              child: Image.asset(
-                Constants.logo,
-                scale: 0.7,
-              ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Align(
-              alignment: Alignment(-0.7, 0),
-              child: Container(
-                child: Text(
-                  "New friends,\nfavourite games",
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context).textTheme.bodyMedium,
+            Expanded(
+              flex: 4,
+              child: Transform.rotate(
+                angle: 0.08,
+                child: Image.asset(
+                  Constants.logo,
+                  scale: 0.7,
                 ),
               ),
             ),
-            SizedBox(height: 100),
             Expanded(
+              child: Align(
+                alignment: Alignment(-0.7, 0),
+                child: Container(
+                  child: Text(
+                    "New friends,\nfavourite games",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+              ),
+            ),
+            new Spacer(),
+            Expanded(
+              flex: 3,
               child: Stack(
                 children: [
-                  // Add any other widgets you want to display here
                   GestureDetector(
                     onTap: () {},
                     child: Transform.rotate(
@@ -128,7 +127,6 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
                   ),
-
                   GestureDetector(
                     onTap: () => signInWithGoogle(ref),
                     child: Transform.rotate(
