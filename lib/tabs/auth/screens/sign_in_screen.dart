@@ -30,7 +30,10 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             Transform.rotate(
               angle: 0.08,
-              child: Image.asset(Constants.logo),
+              child: Image.asset(
+                Constants.logo,
+                scale: 0.7,
+              ),
             ),
             SizedBox(
               height: 40,
