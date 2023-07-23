@@ -60,7 +60,11 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                       child: Align(
                         alignment: Alignment(0, 0),
                         child: Padding(
-                          padding: EdgeInsets.only(bottom: 50.0),
+                          padding: EdgeInsets.only(
+                            bottom: 50.0,
+                            left: 20,
+                            right: 20,
+                          ),
                           child: Container(
                             decoration: BoxDecoration(
                               border: GradientBoxBorder(
@@ -80,28 +84,29 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                               color: Colors.black,
                             ),
                             height: double.infinity,
-                            width: 480,
+                            width: double.infinity,
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 19,
-                                  ),
+                                  padding: EdgeInsets.all(11.0),
                                   child: Align(
-                                    alignment: Alignment(1, -0.9),
+                                    alignment: Alignment.topLeft,
                                     child: Image.asset(
                                       Constants.apple,
-                                      scale: 0.7,
                                     ),
                                   ),
                                 ),
+                                new Spacer(),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 120),
+                                  padding: EdgeInsets.all(10.0),
                                   child: Align(
-                                    alignment: Alignment(1, -0.91),
-                                    child: Text(
-                                      'Continue with Apple ↗',
+                                    alignment: Alignment.topRight,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        'Continue with Apple ↗',
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -118,7 +123,11 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Transform.rotate(
                       angle: 0.0,
                       child: Padding(
-                        padding: EdgeInsets.only(top: 120),
+                        padding: EdgeInsets.only(
+                          top: 120,
+                          left: 16,
+                          right: 16,
+                        ),
                         child: Align(
                           alignment: Alignment(0, 0.2),
                           child: Container(
@@ -141,28 +150,30 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                             height: double
                                 .infinity, // Adjust this height to control the height of the clipped container
-                            width: 490,
+                            width: double.infinity,
+
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 19,
-                                  ),
+                                  padding: EdgeInsets.all(16.0),
                                   child: Align(
-                                    alignment: Alignment(1, -0.9),
+                                    alignment: Alignment.topLeft,
                                     child: Image.asset(
                                       Constants.google,
-                                      scale: 0.7,
                                     ),
                                   ),
                                 ),
+                                new Spacer(),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 120),
+                                  padding: EdgeInsets.all(10.0),
                                   child: Align(
-                                    alignment: Alignment(1, -0.91),
-                                    child: Text(
-                                      'Continue with Google ↗',
+                                    alignment: Alignment.topRight,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        'Continue with Google ↗',
+                                      ),
                                     ),
                                   ),
                                 ),
