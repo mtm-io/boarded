@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradient_borders/gradient_borders.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -88,24 +89,34 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.all(11.0),
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Image.asset(
-                                      Constants.apple,
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Image.asset(
+                                        Constants.apple,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 new Spacer(),
-                                Padding(
-                                  padding: EdgeInsets.all(10.0),
+                                Expanded(
+                                  flex: 3,
                                   child: Align(
                                     alignment: Alignment.topRight,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        'Continue with Apple ↗',
+                                    child: Container(
+                                      width: double.infinity,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          top: 12,
+                                        ),
+                                        child: AutoSizeText(
+                                          'Continue with Apple ↗',
+                                          maxLines: 2,
+                                          minFontSize: 10,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -124,7 +135,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                       angle: 0.0,
                       child: Padding(
                         padding: EdgeInsets.only(
-                          top: 120,
+                          top: 100,
                           left: 16,
                           right: 16,
                         ),
@@ -155,24 +166,34 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.all(16.0),
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Image.asset(
-                                      Constants.google,
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Image.asset(
+                                        Constants.google,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 new Spacer(),
-                                Padding(
-                                  padding: EdgeInsets.all(10.0),
+                                Expanded(
+                                  flex: 3,
                                   child: Align(
                                     alignment: Alignment.topRight,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        'Continue with Google ↗',
+                                    child: Container(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          top: 12,
+                                          right: 42,
+                                        ),
+                                        child: AutoSizeText(
+                                          'Continue with Google ↗',
+                                          maxLines: 2,
+                                          minFontSize: 10,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ),
                                   ),
