@@ -13,28 +13,40 @@ class BottomNavigator extends StatefulWidget {
 }
 
 class _BottomNavigatorState extends State<BottomNavigator> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 25, fontWeight: FontWeight.w600);
+  int _selectedIndex = 1;
+  static const TextStyle optionStyle = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w600,
+  );
 
-  final _pageController = PageController();
+  final _pageController = PageController(initialPage: 1);
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   static const List<Widget> _widgetOptions = <Widget>[
     HostPage(),
     HomePage(),
     ProfilePage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        children: _widgetOptions,
-        onPageChanged: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        controller: _pageController,
+      body: SafeArea(
+        child: PageView(
+          physics: const BouncingScrollPhysics(),
+          onPageChanged: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          controller: _pageController,
+          children: _widgetOptions,
+        ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -42,8 +54,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           hoverColor: Colors.grey[800]!,
           duration: Duration(milliseconds: 400),
           tabBackgroundColor: Colors.grey[900]!,
-          padding: EdgeInsets.all(16.0),
-          iconSize: 44,
+          padding: EdgeInsets.all(20.0),
+          iconSize: 30,
           textStyle: optionStyle,
           tabs: [
             GButton(

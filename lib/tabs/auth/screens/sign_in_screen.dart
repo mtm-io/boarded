@@ -1,9 +1,7 @@
-import 'package:boarded/core/common/google_auth_button.dart';
 import 'package:boarded/core/constants/constants.dart';
 import 'package:boarded/tabs/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
