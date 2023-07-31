@@ -1,12 +1,10 @@
 import 'package:boarded/core/constants/constants.dart';
 import 'package:boarded/tabs/auth/controller/auth_controller.dart';
-import 'package:boarded/utils/pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradient_borders/gradient_borders.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -43,13 +41,11 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(left: 39.w, bottom: 63.4.h),
-            child: Container(
-              child: Text(
-                "New friends,\nfavourite games",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                ),
+            child: const Text(
+              "New friends,\nfavourite games",
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),
@@ -72,7 +68,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           ),
                           child: Container(
                             decoration: BoxDecoration(
-                              border: GradientBoxBorder(
+                              border: const GradientBoxBorder(
                                 gradient: LinearGradient(
                                   colors: [
                                     Colors.white,
@@ -109,16 +105,14 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                 ),
                                 Align(
                                   alignment: Alignment.topLeft,
-                                  child: Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 111.w,
-                                        top: 16.h,
-                                      ),
-                                      child: Text(
-                                        'Continue with Apple ↗',
-                                        style: TextStyle(fontSize: 17.sp),
-                                      ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 111.w,
+                                      top: 16.h,
+                                    ),
+                                    child: Text(
+                                      'Continue with Apple ↗',
+                                      style: TextStyle(fontSize: 17.sp),
                                     ),
                                   ),
                                 ),
@@ -144,7 +138,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                               Radius.circular(23.r),
                             ),
                             color: Colors.black,
-                            border: GradientBoxBorder(
+                            border: const GradientBoxBorder(
                               gradient: LinearGradient(
                                 colors: [
                                   Colors.white,
@@ -179,16 +173,14 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                               Align(
                                 alignment: Alignment.topLeft,
-                                child: Container(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 100.w,
-                                      top: 16.h,
-                                    ),
-                                    child: Text(
-                                      'Continue with Google ↗',
-                                      style: TextStyle(fontSize: 17.sp),
-                                    ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 100.w,
+                                    top: 16.h,
+                                  ),
+                                  child: Text(
+                                    'Continue with Google ↗',
+                                    style: TextStyle(fontSize: 17.sp),
                                   ),
                                 ),
                               ),
