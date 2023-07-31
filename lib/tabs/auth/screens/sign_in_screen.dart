@@ -1,7 +1,10 @@
 import 'package:boarded/core/constants/constants.dart';
 import 'package:boarded/tabs/auth/controller/auth_controller.dart';
+import 'package:boarded/utils/pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -18,50 +21,54 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 4,
-              child: Transform.rotate(
-                angle: 0.08,
-                child: Image.asset(
-                  Constants.logo,
-                  scale: 0.7,
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: 69.h,
+              left: 29.w,
+              right: 3.w,
+              bottom: 34.26.h,
+            ),
+            child: Transform.rotate(
+              angle: -0.0274016693,
+              child: SvgPicture.asset(
+                Constants.logo,
+                height: 276.h,
+                width: 351.w,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 39.w, bottom: 63.4.h),
+            child: Container(
+              child: Text(
+                "New friends,\nfavourite games",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment(-0.7, 0),
-                child: Container(
-                  child: Text(
-                    "New friends,\nfavourite games",
-                    textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
-              ),
-            ),
-            new Spacer(),
-            Expanded(
-              flex: 3,
-              child: Stack(
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Stack(
+                alignment: Alignment.bottomCenter,
                 children: [
                   GestureDetector(
                     onTap: () {},
                     child: Transform.rotate(
-                      angle: 0.0,
+                      angle: 0,
                       child: Align(
                         alignment: Alignment(0, 0),
                         child: Padding(
                           padding: EdgeInsets.only(
-                            bottom: 50.0,
-                            left: 20,
-                            right: 20,
+                            left: 17.17.w,
+                            right: 17.17.w,
                           ),
                           child: Container(
                             decoration: BoxDecoration(
@@ -74,46 +81,43 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                 ),
-                                width: 2,
+                                width: 1,
                               ),
                               borderRadius: BorderRadius.all(
-                                Radius.circular(20),
+                                Radius.circular(23.r),
                               ),
                               color: Colors.black,
                             ),
-                            height: double.infinity,
-                            width: double.infinity,
+                            height: 340.4.h,
+                            width: 348.w,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Expanded(
+                                Align(
+                                  alignment: Alignment.topLeft,
                                   child: Padding(
-                                    padding: EdgeInsets.all(16.0),
-                                    child: Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Image.asset(
-                                        Constants.apple,
-                                      ),
+                                    padding: EdgeInsets.only(
+                                      left: 18.w,
+                                      top: 14.h,
+                                    ),
+                                    child: SvgPicture.asset(
+                                      Constants.apple,
+                                      height: 23.h,
+                                      width: 22.11.w,
                                     ),
                                   ),
                                 ),
-                                new Spacer(),
-                                Expanded(
-                                  flex: 3,
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: Container(
-                                      width: double.infinity,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                          top: 12,
-                                        ),
-                                        child: AutoSizeText(
-                                          'Continue with Apple ↗',
-                                          maxLines: 2,
-                                          minFontSize: 10,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 111.w,
+                                        top: 16.h,
+                                      ),
+                                      child: Text(
+                                        'Continue with Apple ↗',
+                                        style: TextStyle(fontSize: 17.sp),
                                       ),
                                     ),
                                   ),
@@ -131,81 +135,111 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                       angle: 0.0,
                       child: Padding(
                         padding: EdgeInsets.only(
-                          top: 100,
-                          left: 16,
-                          right: 16,
+                          left: 21.w,
+                          right: 21.w,
                         ),
-                        child: Align(
-                          alignment: Alignment(0, 0.2),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              color: Colors.black,
-                              border: GradientBoxBorder(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.white,
-                                    Colors.black,
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                width: 2,
-                              ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(23.r),
                             ),
-                            height: double
-                                .infinity, // Adjust this height to control the height of the clipped container
-                            width: double.infinity,
+                            color: Colors.black,
+                            border: GradientBoxBorder(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.white,
+                                  Colors.black,
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                              width: 1,
+                            ),
+                          ),
+                          height: 270.8
+                              .h, // Adjust this height to control the height of the clipped container
+                          width: 348.w,
 
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 18.w,
+                                    top: 19.h,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    Constants.google,
+                                    height: 19.77.h,
+                                    width: 22.w,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
                                   child: Padding(
-                                    padding: EdgeInsets.all(16.0),
-                                    child: Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Image.asset(
-                                        Constants.google,
-                                      ),
+                                    padding: EdgeInsets.only(
+                                      left: 100.w,
+                                      top: 16.h,
+                                    ),
+                                    child: Text(
+                                      'Continue with Google ↗',
+                                      style: TextStyle(fontSize: 17.sp),
                                     ),
                                   ),
                                 ),
-                                new Spacer(),
-                                Expanded(
-                                  flex: 3,
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                          top: 12,
-                                          right: 42,
-                                        ),
-                                        child: AutoSizeText(
-                                          'Continue with Google ↗',
-                                          maxLines: 2,
-                                          minFontSize: 10,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 38.h),
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Text(
+                          'By continuing, you agree to our ',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            color: const Color.fromRGBO(109, 109, 109, 1),
+                          ),
+                        ),
+                        Text(
+                          'Terms ',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                          ),
+                        ),
+                        Text(
+                          'and',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            color: const Color.fromRGBO(109, 109, 109, 1),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 21.h),
+                    child: Text(
+                      '\nPrivacy Policy',
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

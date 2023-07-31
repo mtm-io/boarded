@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Pallete {
   // Colors
@@ -33,12 +34,12 @@ class Pallete {
     // font
     fontFamily: 'SpaceGrotesk',
     //text style
-    textTheme: const TextTheme(
+    textTheme: TextTheme(
       bodyMedium: TextStyle(
-          fontSize: 23,
+          fontSize: 23.sp,
           color: Colors.white,
           fontFamily: 'SpaceGrotesk',
-          fontWeight: FontWeight.w500),
+          fontWeight: FontWeight.w400),
     ),
   );
 }
