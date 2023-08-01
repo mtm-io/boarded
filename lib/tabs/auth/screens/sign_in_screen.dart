@@ -1,12 +1,13 @@
-import 'dart:async';
+//import 'dart:async';
 import 'package:boarded/core/constants/constants.dart';
+import 'package:boarded/core/constants/my_text.dart';
 import 'package:boarded/tabs/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradient_borders/gradient_borders.dart';
-import 'package:sensors_plus/sensors_plus.dart';
+//import 'package:sensors_plus/sensors_plus.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -70,20 +71,23 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   Constants.logo,
                   height: 271.r,
                   width: 351.w,
-                  colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  colorFilter:
+                      const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                 ),
               ),
             ),
             Padding(
               padding:
                   EdgeInsets.only(left: 39.w, bottom: 61.4.h, right: 170.w),
-              child: const Text(
-                "New friends,\nfavourite games",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
+              child: const FittedBox(
+                child: MyText(
+                  "New friends,\nfavourite games",
+                  textAlign: TextAlign.start,
+                  maxLines: 2,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-                textScaleFactor: 1,
               ),
             ),
             Padding(
@@ -144,9 +148,12 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                     left: 111.w,
                                     top: 16.h,
                                   ),
-                                  child: Text(
+                                  child: MyText(
                                     'Continue with Apple ↗',
-                                    style: TextStyle(fontSize: 17.sp),
+                                    style: TextStyle(
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -211,9 +218,12 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                     left: 100.w,
                                     top: 16.h,
                                   ),
-                                  child: Text(
+                                  child: MyText(
                                     'Continue with Google ↗',
-                                    style: TextStyle(fontSize: 17.sp),
+                                    style: TextStyle(
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -232,33 +242,37 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           Wrap(
                             alignment: WrapAlignment.center,
                             children: [
-                              Text(
+                              MyText(
                                 'By continuing, you agree to our ',
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   color: const Color.fromRGBO(109, 109, 109, 1),
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              Text(
+                              MyText(
                                 'Terms ',
                                 style: TextStyle(
                                   fontSize: 13.sp,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              Text(
+                              MyText(
                                 'and',
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   color: const Color.fromRGBO(109, 109, 109, 1),
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ],
                           ),
-                          Text(
+                          MyText(
                             '\nPrivacy Policy',
                             style: TextStyle(
                               fontSize: 13.sp,
                               height: 0.65,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
