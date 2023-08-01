@@ -114,6 +114,9 @@ class AuthRepository {
 
       // ignore: avoid_print
       print(userCredential.user?.email); // just for testing
-    } catch (e) {}
+    } on FirebaseAuthException catch (e) {
+      print('Failed with error code: ${e.code}');
+      print(e.message);
+    }
   }
 }

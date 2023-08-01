@@ -36,7 +36,7 @@ class Pallete {
     //text style
     textTheme: TextTheme(
       bodyMedium: TextStyle(
-          fontSize: 23.sp,
+          fontSize: 23.w,
           color: Colors.white,
           fontFamily: 'SpaceGrotesk',
           fontWeight: FontWeight.w400),
