@@ -19,8 +19,8 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class LoginScreenState extends ConsumerState<LoginScreen> {
-  void signInWithGoogle(WidgetRef ref) =>
-      ref.read(authControllerProvider).signInWithGoogle();
+  void signInWithGoogle(BuildContext context, WidgetRef ref) =>
+      ref.read(authControllerProvider).signInWithGoogle(context);
 
   // final Stream _myStream = gyroscopeEvents;
   // late StreamSubscription _sub;
@@ -74,14 +74,12 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   Constants.logo,
                   height: 271.r,
                   width: 351.w,
-                  colorFilter:
-                      const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                 ),
               ),
             ),
             Padding(
-              padding:
-                  EdgeInsets.only(left: 39.w, bottom: 61.4.h, right: 170.w),
+              padding: EdgeInsets.only(left: 39.w, bottom: 61.4.h, right: 170.w),
               child: const FittedBox(
                 child: MyText(
                   "New friends,\nfavourite games",
@@ -170,11 +168,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                     onTap: () {
                       showDialogue(context);
 
-                      signInWithGoogle(ref);
-                      ref
-                          .watch(authControllerProvider)
-                          .currentUserState
-                          .then((user) {
+                      signInWithGoogle(context, ref);
+                      ref.watch(authControllerProvider).currentUserState.then((user) {
                         if (user != null) {
                           hideProgressDialogue(context);
                         }
@@ -205,8 +200,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                               width: 1,
                             ),
                           ),
-                          height: 269.8
-                              .h, // Adjust this height to control the height of the clipped container
+                          height: 269.8.h, // Adjust this height to control the height of the clipped container
                           width: 348.w,
 
                           child: Row(
