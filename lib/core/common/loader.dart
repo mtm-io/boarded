@@ -1,3 +1,4 @@
+import 'package:boarded/utils/pallete.dart';
 import 'package:flutter/material.dart';
 
 /// Loader "page"
@@ -7,8 +8,21 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(),
+    return Center(
+      child: CircularProgressIndicator(
+        color: Pallete.loaderColor,
+      ),
     );
   }
+}
+
+void showDialogue(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => const Loader(),
+  );
+}
+
+void hideProgressDialogue(BuildContext context) {
+  Navigator.of(context).pop(const Loader());
 }

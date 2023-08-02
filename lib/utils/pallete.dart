@@ -9,6 +9,7 @@ class Pallete {
   static const whiteColor = Colors.white;
   static var redColor = Colors.red.shade500;
   static var blueColor = Colors.blue.shade300;
+  static var loaderColor = const Color.fromRGBO(234, 234, 234, 1);
 
   static ThemeData darkTheme = ThemeData(
     primaryColor: Pallete.greyColor,

@@ -13,6 +13,10 @@ class AppRouter {
     required bool isAuth,
   }) : _isAuth = isAuth;
 
+  bool get isAuth {
+    return _isAuth;
+  }
+
   late final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
     routes: [

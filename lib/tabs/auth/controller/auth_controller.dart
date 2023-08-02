@@ -41,6 +41,10 @@ class AuthController {
     return _authRepository.authStateChange;
   }
 
+  Future<User?> get currentUserState {
+    return _authRepository.currentUserState;
+  }
+
   /// Provides signInWithGoogle() Function
   /// from AuthRepository
   void signInWithGoogle() => _authRepository.signInWithGoogle();

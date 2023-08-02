@@ -36,11 +36,15 @@ class AuthRepository {
     await _auth.signOut();
   }
 
+  Future<User?> get currentUserState async {
+    return _auth.currentUser;
+  }
+
   /// A Stream that says if a user
   /// logged in or not
   ///
   Stream<User?> get authStateChange {
-    return _auth.authStateChanges();
+    return _auth.idTokenChanges();
   }
 
   /// Email + Password Sing Up ///

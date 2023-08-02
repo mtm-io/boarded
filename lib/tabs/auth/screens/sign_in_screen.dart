@@ -1,6 +1,8 @@
 //import 'dart:async';
+import 'package:boarded/core/common/loader.dart';
 import 'package:boarded/core/constants/constants.dart';
 import 'package:boarded/core/constants/my_text.dart';
+//import 'package:boarded/router.dart';
 import 'package:boarded/tabs/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,6 +21,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 class LoginScreenState extends ConsumerState<LoginScreen> {
   void signInWithGoogle(WidgetRef ref) =>
       ref.read(authControllerProvider).signInWithGoogle();
+
   // final Stream _myStream = gyroscopeEvents;
   // late StreamSubscription _sub;
   // double x = 0;
@@ -164,7 +167,19 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => signInWithGoogle(ref),
+                    onTap: () {
+                      showDialogue(context);
+
+                      signInWithGoogle(ref);
+                      ref
+                          .watch(authControllerProvider)
+                          .currentUserState
+                          .then((user) {
+                        if (user != null) {
+                          hideProgressDialogue(context);
+                        }
+                      });
+                    },
                     child: Transform.rotate(
                       angle: 0.0,
                       child: Padding(

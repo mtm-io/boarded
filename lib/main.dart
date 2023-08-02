@@ -26,7 +26,6 @@ void main() async {
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /// Subscription to a authStateChange Stream
@@ -47,6 +46,7 @@ class MyApp extends ConsumerWidget {
             /// when data is null it means that there is no logged in user
             /// opposite data != null => user is logged in
             /// p.s. check class AppRouter in roter.dart
+
             routerConfig: AppRouter(isAuth: data != null ? true : false).router,
           ),
         );
