@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:boarded/core/utils.dart';
+
 /// Provider of AuthController class ///
 ///
 ///
@@ -28,8 +30,7 @@ class AuthController {
   final AuthRepository _authRepository;
 
   /// Constructor of AuthController
-  AuthController({required AuthRepository authRepository})
-      : _authRepository = authRepository;
+  AuthController({required AuthRepository authRepository}) : _authRepository = authRepository;
 
   /// Provides SignOut Function
   ///
@@ -47,7 +48,10 @@ class AuthController {
 
   /// Provides signInWithGoogle() Function
   /// from AuthRepository
-  void signInWithGoogle() => _authRepository.signInWithGoogle();
+  void signInWithGoogle(BuildContext context) async {
+    final user = await _authRepository.signInWithGoogle();
+    user.fold((l) => showSnackBar(context, l.message), (r) => null);
+  }
 
   /// Provides createUserWithEmailAndPassword() Function
   /// from AuthRepository

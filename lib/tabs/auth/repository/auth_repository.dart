@@ -1,10 +1,16 @@
 import 'package:boarded/core/common/snackbars.dart';
+import 'package:boarded/core/constants/constants.dart';
+import 'package:boarded/core/constants/firebase_constants.dart';
+import 'package:boarded/core/failure.dart';
 import 'package:boarded/core/providers/firebase_providers.dart';
+import 'package:boarded/core/type_defs.dart';
+import 'package:boarded/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final authRepositoryProvider = Provider(
@@ -29,6 +35,8 @@ class AuthRepository {
   })  : _auth = auth,
         _firestore = firestore,
         _googleSignIn = googleSignIn;
+
+  CollectionReference get _users => _firestore.collection(FirebaseConstants.usersCollection);
 
   /// Function to signout a user
   ///
@@ -81,8 +89,7 @@ class AuthRepository {
   }) async {
     try {
       // ignore: unused_local_variable
-      UserCredential credential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
@@ -97,7 +104,7 @@ class AuthRepository {
   ///
   ///
 
-  Future<void> signInWithGoogle() async {
+  FutureEither<UserModel> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
@@ -113,14 +120,31 @@ class AuthRepository {
       /// for ex. userCredential.user?.email gives
       /// as his email. Here are all Properties of user Class:
       /// https://pub.dev/documentation/firebase/latest/firebase/User-class.html
-      UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
-
-      // ignore: avoid_print
-      print(userCredential.user?.email); // just for testing
-    } on FirebaseAuthException catch (e) {
-      print('Failed with error code: ${e.code}');
-      print(e.message);
+      UserCredential userCredential = await _auth.signInWithCredential(credential);
+      UserModel userModel;
+      if (userCredential.additionalUserInfo!.isNewUser) {
+        userModel = UserModel(
+          name: userCredential.user!.displayName ?? 'Untitled',
+          email: userCredential.user!.email ?? 'Anon',
+          profilePic: userCredential.user!.photoURL ?? Constants.defaultPfp,
+          uid: userCredential.user!.uid,
+          isAuthenticated: 'true',
+          hostedRooms: [],
+          joinedRooms: [],
+        );
+        await _users.doc(userCredential.user!.uid).set(userModel.toMap());
+      } else {
+        userModel = await getUserData(userCredential.user!.uid).first;
+      }
+      return right(userModel);
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      return left(Failure(e.toString()));
     }
+  }
+
+  Stream<UserModel> getUserData(String uid) {
+    return _users.doc(uid).snapshots().map((event) => UserModel.fromMap(event.data() as Map<String, dynamic>));
   }
 }
