@@ -19,10 +19,6 @@ class BottomNavigator extends StatefulWidget {
 
 class _BottomNavigatorState extends State<BottomNavigator> {
   int _selectedIndex = 1;
-  static const TextStyle optionStyle = TextStyle(
-    fontSize: 25,
-    fontWeight: FontWeight.w600,
-  );
 
   final _pageController = PageController(initialPage: 1);
 
@@ -54,56 +50,65 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         ),
       ),
       bottomNavigationBar: SafeArea(
-        child: Theme(
-          data: ThemeData(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-          ),
-          child: BottomNavigationBar(
-            //unselectedItemColor: Color.fromRGBO(126, 123, 123, 1),
-            //selectedItemColor: Colors.white,
-            enableFeedback: false,
-            backgroundColor: Color.fromARGB(
-                255, 0, 0, 0), //changes background of Botton Navigation Bar
-            showSelectedLabels: true,
-            showUnselectedLabels: false,
-            selectedLabelStyle: TextStyle(fontSize: 4),
-            items: [
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  Constants.dicesvg,
-                  height: 40.sp,
-                  width: 40.sp,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 5.h),
+          child: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: BottomNavigationBar(
+              //unselectedItemColor: Color.fromRGBO(126, 123, 123, 1),
+              //selectedItemColor: Colors.white,
+              enableFeedback: false,
+              backgroundColor: const Color.fromARGB(255, 12, 12,
+                  12), //changes background of Botton Navigation Bar
+              showSelectedLabels: true,
+              showUnselectedLabels: false,
+              selectedLabelStyle: const TextStyle(fontSize: 15),
+              items: [
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    Constants.diceD20,
+                    height: 45.sp,
+                    width: 45.sp,
+                    colorFilter:
+                        const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ),
+                  label: "",
                 ),
-                label: "",
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  Constants.search,
-                  height: 46.sp,
-                  width: 46.sp,
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    Constants.compas,
+                    height: 45.sp,
+                    width: 40.sp,
+                    colorFilter:
+                        const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ),
+                  label: "",
+                  backgroundColor: Colors.red,
                 ),
-                label: "",
-                backgroundColor: Colors.red,
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  Constants.profile,
-                  height: 38.sp,
-                  width: 38.sp,
-                ),
-                label: "",
-              )
-            ],
-            currentIndex: _selectedIndex,
-            onTap: (index) {
-              setState(() {
-                _selectedIndex = index;
-                _pageController.animateToPage(_selectedIndex,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.linear);
-              });
-            },
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    Constants.avatar,
+                    height: 45.sp,
+                    width: 45.sp,
+                    colorFilter:
+                        const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ),
+                  label: "",
+                )
+              ],
+              currentIndex: _selectedIndex,
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                  _pageController.animateToPage(_selectedIndex,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.linear);
+                });
+              },
+            ),
           ),
         ),
       ),
