@@ -1,9 +1,14 @@
 import 'package:boarded/tabs/home/screens/home_screen.dart';
 import 'package:boarded/tabs/host/screens/host_page.dart';
 import 'package:boarded/tabs/profile/screens/profile.dart';
+import 'package:boarded/utils/pallete.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+
+import 'core/constants/constants.dart';
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({super.key});
@@ -48,41 +53,58 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           children: _widgetOptions,
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-        child: GNav(
-          hoverColor: Colors.grey[800]!,
-          duration: Duration(milliseconds: 400),
-          tabBackgroundColor: Colors.grey[900]!,
-          padding: EdgeInsets.all(20.0),
-          iconSize: 30,
-          textStyle: optionStyle,
-          tabs: [
-            GButton(
-              icon: FontAwesomeIcons.dice,
-              gap: 20,
-              text: 'Host',
-            ),
-            GButton(
-              icon: FontAwesomeIcons.magnifyingGlass,
-              text: 'Find',
-              gap: 8,
-            ),
-            GButton(
-              icon: FontAwesomeIcons.user,
-              text: 'Profile',
-              gap: 8,
-            )
-          ],
-          selectedIndex: _selectedIndex,
-          onTabChange: (index) {
-            setState(() {
-              _selectedIndex = index;
-              _pageController.animateToPage(_selectedIndex,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.linear);
-            });
-          },
+      bottomNavigationBar: SafeArea(
+        child: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: BottomNavigationBar(
+            //unselectedItemColor: Color.fromRGBO(126, 123, 123, 1),
+            //selectedItemColor: Colors.white,
+            enableFeedback: false,
+            backgroundColor: Color.fromARGB(
+                255, 0, 0, 0), //changes background of Botton Navigation Bar
+            showSelectedLabels: true,
+            showUnselectedLabels: false,
+            selectedLabelStyle: TextStyle(fontSize: 4),
+            items: [
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  Constants.dicesvg,
+                  height: 40.sp,
+                  width: 40.sp,
+                ),
+                label: "",
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  Constants.search,
+                  height: 46.sp,
+                  width: 46.sp,
+                ),
+                label: "",
+                backgroundColor: Colors.red,
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  Constants.profile,
+                  height: 38.sp,
+                  width: 38.sp,
+                ),
+                label: "",
+              )
+            ],
+            currentIndex: _selectedIndex,
+            onTap: (index) {
+              setState(() {
+                _selectedIndex = index;
+                _pageController.animateToPage(_selectedIndex,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.linear);
+              });
+            },
+          ),
         ),
       ),
     );
