@@ -25,7 +25,7 @@ class HomePageState extends ConsumerState<HomePage> {
           ),
           ElevatedButton(
             onPressed: () {
-              ref.watch(authControllerProvider).signOut();
+              ref.watch(authControllerProvider.notifier).signOut();
             },
             child: const Text("Sign Out"),
           ),

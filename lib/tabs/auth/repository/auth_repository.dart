@@ -36,12 +36,14 @@ class AuthRepository {
         _firestore = firestore,
         _googleSignIn = googleSignIn;
 
+  // Get Users collection reference
   CollectionReference get _users => _firestore.collection(FirebaseConstants.usersCollection);
 
   /// Function to signout a user
   ///
   Future<void> signOut() async {
     await _auth.signOut();
+    await _googleSignIn.signOut();
   }
 
   Future<User?> get currentUserState async {
@@ -52,7 +54,8 @@ class AuthRepository {
   /// logged in or not
   ///
   Stream<User?> get authStateChange {
-    return _auth.idTokenChanges();
+    // return _auth.idTokenChanges();
+    return _auth.authStateChanges();
   }
 
   /// Email + Password Sing Up ///
