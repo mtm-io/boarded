@@ -32,7 +32,6 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             color: Color.fromRGBO(118, 188, 123, 1),
           ),
-
           width: double.infinity,
           child: Padding(
             padding: EdgeInsets.only(left: 23.w, top: 23.h),
