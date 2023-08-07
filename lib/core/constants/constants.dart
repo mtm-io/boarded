@@ -17,4 +17,5 @@ class Constants {
   static const map1 = 'assets/images/map1.svg';
   static const compas = 'assets/images/compas.svg';
   static const avatar = 'assets/images/avatar.svg';
+  static const arrow = 'assets/images/arrow.svg';
 }

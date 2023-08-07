@@ -1,12 +1,9 @@
 import 'package:boarded/tabs/home/screens/home_screen.dart';
 import 'package:boarded/tabs/host/screens/host_page.dart';
 import 'package:boarded/tabs/profile/screens/profile.dart';
-import 'package:boarded/utils/pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'core/constants/constants.dart';
 
@@ -20,14 +17,6 @@ class BottomNavigator extends StatefulWidget {
 class _BottomNavigatorState extends State<BottomNavigator> {
   int _selectedIndex = 1;
 
-  final _pageController = PageController(initialPage: 1);
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
   static const List<Widget> _widgetOptions = <Widget>[
     HostPage(),
     HomePage(),
@@ -37,17 +26,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: PageView(
-          physics: const BouncingScrollPhysics(),
-          onPageChanged: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          controller: _pageController,
-          children: _widgetOptions,
-        ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgetOptions,
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
@@ -103,9 +84,6 @@ class _BottomNavigatorState extends State<BottomNavigator> {
               onTap: (index) {
                 setState(() {
                   _selectedIndex = index;
-                  _pageController.animateToPage(_selectedIndex,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.linear);
                 });
               },
             ),
