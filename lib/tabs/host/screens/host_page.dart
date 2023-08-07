@@ -9,7 +9,6 @@ class HostPage extends ConsumerWidget {
   void navigateToCreateRoom(BuildContext context) {
     Routemaster.of(context).push('/create-room');
   }
-          
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,23 +17,18 @@ class HostPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(user.name),
       ),
-      body: ElevatedButton(
-        child: const Text("Create Room"),
-        onPressed: () => navigateToCreateRoom(context),
-      ),
       body: Column(
         children: [
           ElevatedButton(
-            onPressed: () {
-              return context.go('/login');
-            },
-            child: const Text("Sign in"),
+            child: const Text("Create Room"),
+            onPressed: () => navigateToCreateRoom(context),
           ),
-        ElevatedButton(
+          ElevatedButton(
             onPressed: () {
               ref.watch(authControllerProvider.notifier).signOut();
             },
             child: const Text("Sign Out"),
+          )
         ],
       ),
     );
