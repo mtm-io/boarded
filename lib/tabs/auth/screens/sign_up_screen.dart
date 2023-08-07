@@ -21,7 +21,7 @@ class SignUpPageState extends ConsumerState<SignUpPage> {
   }
 
   void createUserWithEmailAndPassword(WidgetRef ref, BuildContext context) =>
-      ref.read(authControllerProvider).createUserWithEmailAndPassword(
+      ref.read(authControllerProvider.notifier).createUserWithEmailAndPassword(
             emailAddress: _emailController.text,
             password: _passwordController.text,
             context: context,

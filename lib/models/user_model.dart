@@ -58,8 +58,8 @@ class UserModel {
       profilePic: map['profilePic'] as String,
       uid: map['uid'] as String,
       isAuthenticated: map['isAuthenticated'] as String,
-      hostedRooms: List<String>.from(map['hostedRooms'] as List<String>),
-      joinedRooms: List<String>.from(map['joinedRooms'] as List<String>),
+      hostedRooms: List<String>.from(map['hostedRooms']),
+      joinedRooms: List<String>.from(map['joinedRooms']),
     );
   }
 

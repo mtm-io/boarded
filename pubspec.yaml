@@ -46,6 +46,7 @@ dependencies:
   flutter_svg: ^2.0.7
   sensors_plus: ^3.0.2
   fpdart: ^1.0.0
+  routemaster: ^1.0.1
   
 
 dev_dependencies:
