@@ -5,16 +5,34 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fpdart/fpdart.dart';
 
 class CreateRoomScreen extends ConsumerStatefulWidget {
   const CreateRoomScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CreateRoomScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CreateRoomScreenState();
 }
 
-class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
+class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 1),
+    reverseDuration: const Duration(seconds: 1),
+    vsync: this,
+  );
+
+  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+    begin: const Offset(0, 0),
+    end: Offset.zero,
+  ).animate(CurvedAnimation(
+    parent: _controller,
+    curve: Curves.ease,
+    reverseCurve: Curves.ease,
+  ));
+
   final roomNameController = TextEditingController();
   final roomDecriptionController = TextEditingController();
   final roomGamesController = TextEditingController();
@@ -43,7 +61,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   }
 
   Future<List<BoardGames>> getData(filter) async {
-    var boardGamesList = await ref.read(roomControllerProvider.notifier).getAllCategory(filter);
+    var boardGamesList =
+        await ref.read(roomControllerProvider.notifier).getAllCategory(filter);
     return boardGamesList;
   }
 
@@ -83,7 +102,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   TextField(
                     controller: roomDecriptionController,
                     decoration: const InputDecoration(
-                      hintText: 'A fun evening playing Monopoly, bring friends!',
+                      hintText:
+                          'A fun evening playing Monopoly, bring friends!',
                       fillColor: Color.fromARGB(255, 255, 255, 255),
                       filled: true,
                       border: InputBorder.none,
@@ -122,17 +142,42 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                     itemAsString: (BoardGames b) => b.name,
                     compareFn: (i, s) => i == s,
                     popupProps: PopupPropsMultiSelection.modalBottomSheet(
+                      fit: FlexFit.loose,
+                      constraints: BoxConstraints(
+                        maxHeight: double.infinity,
+                      ),
+                      searchFieldProps: TextFieldProps(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Choose your games",
+                        ),
+                      ),
                       isFilterOnline: true,
                       showSelectedItems: true,
                       showSearchBox: true,
                       itemBuilder: _popupItemBuilder,
-                    ),
-                    dropdownDecoratorProps: DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                        labelText: "Modal mode",
-                        hintText: "Select an Int",
-                        filled: true,
+                      modalBottomSheetProps: ModalBottomSheetProps(
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                        enableDrag: true,
+                        animation: _controller,
+                        padding: EdgeInsets.only(top: 10.h),
                       ),
+                      containerBuilder: (context, popupWidget) {
+                        return SlideTransition(
+                          position: _offsetAnimation,
+                          child: Column(
+                            children: [
+                              Flexible(
+                                child: Container(
+                                  child: popupWidget,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -166,7 +211,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                             Flexible(
                               child: Container(
                                 child: popupWidget,
-                                color: Color(0xFF2F772A),
+                                color: Colors.white,
                               ),
                             ),
                           ],
@@ -212,7 +257,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
                     ),
                     child: const Text('Create'),
                   )
@@ -222,7 +268,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     );
   }
 
-  Widget _popupItemBuilder(BuildContext context, BoardGames item, bool isSelected) {
+  Widget _popupItemBuilder(
+      BuildContext context, BoardGames item, bool isSelected) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8),
       // decoration: !isSelected

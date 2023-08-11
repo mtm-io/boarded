@@ -12,7 +12,8 @@ import 'package:routemaster/routemaster.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml2json/xml2json.dart';
 
-final roomControllerProvider = StateNotifierProvider<RoomController, bool>((ref) {
+final roomControllerProvider =
+    StateNotifierProvider<RoomController, bool>((ref) {
   final roomRepository = ref.watch(roomRepositoryProvider);
   return RoomController(roomRepository: roomRepository, ref: ref);
 });
@@ -25,8 +26,8 @@ class RoomController extends StateNotifier<bool> {
         _ref = ref,
         super(false);
 
-  void createRoom(String name, String description, List<String> games, String startDateTime, String address,
-      BuildContext context) async {
+  void createRoom(String name, String description, List<String> games,
+      String startDateTime, String address, BuildContext context) async {
     state = true;
     final uid = _ref.read(userProvider)?.uid ?? '';
     Room room = Room(
@@ -53,7 +54,8 @@ class RoomController extends StateNotifier<bool> {
   }
 
   Future<List<BoardGames>> getAllCategory(String filter) async {
-    final baseUrl = "https://api.geekdo.com/xmlapi2/search?query=$filter&type=boardgame&exact=0";
+    final baseUrl =
+        "https://api.geekdo.com/xmlapi2/search?query=$filter&type=boardgame&exact=0";
     const hotUrl = "https://api.geekdo.com/xmlapi2/hot?type=boardgame";
     final url = filter.isEmpty ? hotUrl : baseUrl;
 
