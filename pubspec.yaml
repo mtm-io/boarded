@@ -47,6 +47,11 @@ dependencies:
   sensors_plus: ^3.0.2
   fpdart: ^1.0.0
   routemaster: ^1.0.1
+  multiple_search_selection: ^2.5.3
+  dropdown_search: ^5.0.6
+  dio: ^5.3.2
+  http: ^1.1.0
+  xml2json: ^6.2.0
   
 
 dev_dependencies:
