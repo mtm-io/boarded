@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'dart:async';
 
 class CreateRoomScreen extends ConsumerStatefulWidget {
   const CreateRoomScreen({super.key});
@@ -20,8 +22,8 @@ class CreateRoomScreen extends ConsumerStatefulWidget {
 class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 1),
-    reverseDuration: const Duration(seconds: 1),
+    duration: const Duration(milliseconds: 700),
+    reverseDuration: const Duration(milliseconds: 500),
     vsync: this,
   );
 
@@ -42,6 +44,23 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
   final _popupCustomValidationKey =
       GlobalKey<DropdownSearchState<BoardGames>>();
 
+  late StreamSubscription<bool> keyboardSubscription;
+  FocusNode myFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+    var keyboardVisibilityController = KeyboardVisibilityController();
+
+    keyboardSubscription =
+        keyboardVisibilityController.onChange.listen((bool visible) {
+      if (!visible) {
+        myFocusNode.unfocus();
+      }
+    });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -50,6 +69,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
     roomGamesController.dispose();
     roomAddressController.dispose();
     roomDateController.dispose();
+    keyboardSubscription.cancel();
   }
 
   void createRoom() {
@@ -147,13 +167,46 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                     compareFn: (i, s) => i == s,
                     popupProps: PopupPropsMultiSelection.modalBottomSheet(
                       fit: FlexFit.loose,
+                      selectionWidget: (context, item, isSelected) {
+                        return Checkbox(
+                          fillColor: MaterialStatePropertyAll(Colors.black),
+                          value: isSelected,
+                          onChanged: (newVal) => {
+                            isSelected = newVal!,
+                          },
+                        );
+                      },
+                      loadingBuilder: (context, searchEntry) {
+                        return const Loader();
+                      },
                       constraints: BoxConstraints(
                         maxHeight: double.infinity,
                       ),
+                      //scrollbarProps: ScrollbarProps(thickness: 100),
                       searchFieldProps: TextFieldProps(
+                        focusNode: myFocusNode,
+                        cursorColor: Color.fromARGB(31, 116, 115, 115),
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Choose your games",
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 4.sp, horizontal: 16.sp),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20.r),
+                              ),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 2,
+                              )),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.r),
+                            ),
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 122, 120, 120),
+                              width: 2,
+                            ),
+                          ),
+                          hintText: "Find your games",
                         ),
                       ),
                       isFilterOnline: true,
@@ -161,9 +214,6 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                       showSearchBox: true,
                       itemBuilder: _popupItemBuilder,
                       modalBottomSheetProps: ModalBottomSheetProps(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(23.r),
-                        ),
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                         enableDrag: true,
@@ -181,39 +231,66 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                             ),
                             child: Column(
                               children: [
-                                Container(
-                                  width: double.infinity,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0.r),
-                                      child: GestureDetector(
-                                        child: MyText(
-                                          "Apply",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17.sp,
-                                            fontWeight: FontWeight.w600,
+                                Flexible(
+                                  flex: 1,
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        color: Colors.white,
+                                        width: double.infinity,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(12.0.r),
+                                          child: GestureDetector(
+                                            child: MyText(
+                                              "Save",
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    94, 157, 98, 1),
+                                                fontSize: 17.sp,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              _popupCustomValidationKey
+                                                  .currentState
+                                                  ?.popupOnValidate();
+                                            },
                                           ),
                                         ),
-                                        onTap: () {
-                                          _popupCustomValidationKey.currentState
-                                              ?.popupOnValidate();
-                                        },
                                       ),
-                                    ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10.r),
-                                      topRight: Radius.circular(10.r),
-                                    ),
-                                    color: Colors.white,
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(12.0.r),
+                                          child: GestureDetector(
+                                            child: MyText(
+                                              "Cancel",
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    217, 29, 19, 1),
+                                                fontSize: 17.sp,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              _popupCustomValidationKey
+                                                  .currentState
+                                                  ?.closeDropDownSearch();
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Flexible(
+                                  flex: 15,
                                   child: Container(
                                     child: popupWidget,
+                                    height: double.infinity,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(10.r),
@@ -324,17 +401,23 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
   Widget _popupItemBuilder(
       BuildContext context, BoardGames item, bool isSelected) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      // decoration: !isSelected
-      //     ? null
-      //     : BoxDecoration(
-      //         border: Border.all(color: Theme.of(context).primaryColor),
-      //         borderRadius: BorderRadius.circular(5),
-      //         color: Colors.white,
-      //       ),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      //decoration: !isSelected
+      //    ? null
+      //    : BoxDecoration(
+      //        border: Border.all(color: Theme.of(context).primaryColor),
+      //        borderRadius: BorderRadius.circular(5),
+      //        color: Colors.white,
+      //      ),
       child: ListTile(
         selected: isSelected,
-        title: Text(item.name),
+        title: Text(
+          item.name,
+          style: !isSelected
+              ? TextStyle(color: Colors.black)
+              : TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+        ),
+
         // subtitle: Text(item.createdAt.toString()),
         // leading: CircleAvatar(
         //   backgroundImage: NetworkImage(item.avatar),
