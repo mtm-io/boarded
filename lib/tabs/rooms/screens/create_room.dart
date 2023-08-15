@@ -1,4 +1,5 @@
 import 'package:boarded/core/common/loader.dart';
+import 'package:boarded/core/constants/my_text.dart';
 import 'package:boarded/models/board_games_model.dart';
 import 'package:boarded/tabs/rooms/controller/room_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,6 +39,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
   final roomGamesController = TextEditingController();
   final roomAddressController = TextEditingController();
   final roomDateController = TextEditingController();
+  final _popupCustomValidationKey =
+      GlobalKey<DropdownSearchState<BoardGames>>();
 
   @override
   void dispose() {
@@ -138,6 +141,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                   //
                   // Working Dropdown
                   DropdownSearch<BoardGames>.multiSelection(
+                    key: _popupCustomValidationKey,
                     asyncItems: (filter) => getData(filter),
                     itemAsString: (BoardGames b) => b.name,
                     compareFn: (i, s) => i == s,
@@ -171,17 +175,50 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                           position: _offsetAnimation,
                           child: Padding(
                             padding: EdgeInsets.only(
-                              bottom: 260.h,
+                              bottom: 20.h,
                               left: 10.w,
                               right: 10.w,
                             ),
                             child: Column(
                               children: [
+                                Container(
+                                  width: double.infinity,
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0.r),
+                                      child: GestureDetector(
+                                        child: MyText(
+                                          "Apply",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 17.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          _popupCustomValidationKey.currentState
+                                              ?.popupOnValidate();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10.r),
+                                      topRight: Radius.circular(10.r),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                ),
                                 Flexible(
                                   child: Container(
                                     child: popupWidget,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.r),
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(10.r),
+                                        bottomRight: Radius.circular(10.r),
+                                      ),
                                       color: Colors.white,
                                     ),
                                   ),
@@ -190,6 +227,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                             ),
                           ),
                         );
+                      },
+                      validationWidgetBuilder: (context, item) {
+                        return Container();
                       },
                     ),
                   ),
