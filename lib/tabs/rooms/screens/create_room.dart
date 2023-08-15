@@ -30,7 +30,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
   ).animate(CurvedAnimation(
     parent: _controller,
     curve: Curves.ease,
-    reverseCurve: Curves.ease,
+    reverseCurve: Curves.easeIn,
   ));
 
   final roomNameController = TextEditingController();
@@ -157,6 +157,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                       showSearchBox: true,
                       itemBuilder: _popupItemBuilder,
                       modalBottomSheetProps: ModalBottomSheetProps(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(23.r),
+                        ),
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                         enableDrag: true,
@@ -166,15 +169,25 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                       containerBuilder: (context, popupWidget) {
                         return SlideTransition(
                           position: _offsetAnimation,
-                          child: Column(
-                            children: [
-                              Flexible(
-                                child: Container(
-                                  child: popupWidget,
-                                  color: Colors.white,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              bottom: 260.h,
+                              left: 10.w,
+                              right: 10.w,
+                            ),
+                            child: Column(
+                              children: [
+                                Flexible(
+                                  child: Container(
+                                    child: popupWidget,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       },
