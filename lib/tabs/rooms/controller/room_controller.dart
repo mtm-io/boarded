@@ -66,6 +66,7 @@ class RoomController extends StateNotifier<bool> {
       transformer.parse(response.body);
       final jsonString = transformer.toGData();
       List<BoardGames> items = [];
+      Set<BoardGames> sortedItems = {};
 
       final jsonData = json.decode(jsonString)["items"]['item'] as List;
       for (var element in jsonData) {
