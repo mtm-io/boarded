@@ -2,12 +2,10 @@ import 'package:boarded/core/common/loader.dart';
 import 'package:boarded/core/constants/my_text.dart';
 import 'package:boarded/models/board_games_model.dart';
 import 'package:boarded/tabs/rooms/controller/room_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'dart:async';
 
@@ -169,19 +167,14 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                       fit: FlexFit.loose,
                       selectionWidget: (context, item, isSelected) {
                         return Checkbox(
-                          fillColor: MaterialStatePropertyAll(Colors.black),
-                          value: isSelected,
-                          onChanged: (newVal) => {
-                            isSelected = newVal!,
-                          },
-                        );
+                            fillColor: MaterialStatePropertyAll(Colors.black),
+                            value: isSelected,
+                            onChanged: (newVal) => isSelected = newVal!);
                       },
                       loadingBuilder: (context, searchEntry) {
                         return const Loader();
                       },
-                      constraints: BoxConstraints(
-                        maxHeight: double.infinity,
-                      ),
+                      constraints: BoxConstraints(maxHeight: double.infinity),
                       //scrollbarProps: ScrollbarProps(thickness: 100),
                       searchFieldProps: TextFieldProps(
                         focusNode: myFocusNode,
@@ -411,11 +404,14 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
       //      ),
       child: ListTile(
         selected: isSelected,
-        title: Text(
+        title: MyText(
           item.name,
           style: !isSelected
-              ? TextStyle(color: Colors.black)
-              : TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+              ? TextStyle(color: Colors.black, fontSize: 13.sp)
+              : TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13.sp),
         ),
 
         // subtitle: Text(item.createdAt.toString()),
