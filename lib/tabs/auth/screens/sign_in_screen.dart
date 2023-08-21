@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:boarded/core/common/loader.dart';
 import 'package:boarded/core/constants/constants.dart';
 import 'package:boarded/core/constants/my_text.dart';
@@ -21,17 +22,27 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class LoginScreenState extends ConsumerState<LoginScreen> {
-  dynamic me2 = 0; //  -1 < me2 < 1
+  double me2 = 0; //  -1 < me2 < 1
+
+  late StreamSubscription streamSub;
 
   @override
   void initState() {
-    gyroscopeEvents.listen((GyroscopeEvent event) {
-      var me = event.z;
-
-      me2 = num.parse(me.toStringAsFixed(2));
-      setState(() {});
-    });
     super.initState();
+    streamSub = gyroscopeEvents.listen((GyroscopeEvent event) {
+      setState(() {
+        var me = event.z;
+
+        me2 = num.parse(me.toStringAsFixed(2)).toDouble();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    streamSub.cancel();
+
+    super.dispose();
   }
 
   @override
@@ -89,6 +100,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           duration:
                               const Duration(milliseconds: 500), // this too
                           //first card
+
                           child: const AuthAppleCard(
                             text: 'Continue with Apple ↗',
                             icon: Constants.apple,
@@ -105,9 +117,17 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
 
                         /// Privacy Policy stuff
                         ///
+                        AnimatedRotation(
+                            turns: -(me2 / 140),
+                            duration: const Duration(milliseconds: 500),
+                            // second card
+                            child: const AuthGitHubCard(
+                              text: "Continue with GitHub ↗",
+                              icon: Constants.github,
+                            )),
                         SafeArea(
                           child: Padding(
-                            padding: EdgeInsets.only(bottom: 30.sp),
+                            padding: EdgeInsets.only(bottom: 10.sp),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -278,6 +298,88 @@ class AuthGoogleCard extends ConsumerWidget {
               ),
             ),
             height: 269.8
+                .h, // Adjust this height to control the height of the clipped container
+            width: 348.w,
+
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 18.w, top: 19.h),
+                    child: SvgPicture.asset(
+                      icon,
+                      height: 19.77.sp,
+                      width: 22.sp,
+                      colorFilter: const ColorFilter.mode(
+                        Pallete.iconColor,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 100.w, top: 16.h),
+                    child: MyText(
+                      text,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AuthGitHubCard extends ConsumerWidget {
+  final String text;
+  final String icon;
+  const AuthGitHubCard({
+    required this.text,
+    required this.icon,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, ref) {
+    return GestureDetector(
+      onTap: () {
+        signInWithGoogle(context, ref);
+      },
+      child: Transform.rotate(
+        angle: 0.0,
+        child: Padding(
+          padding: EdgeInsets.only(left: 21.w, right: 21.w),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(23.r),
+              ),
+              color: Pallete.blackColor,
+              border: const GradientBoxBorder(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white,
+                    Pallete.blackColor,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+                width: 1,
+              ),
+            ),
+            height: 160
+                .h
                 .h, // Adjust this height to control the height of the clipped container
             width: 348.w,
 

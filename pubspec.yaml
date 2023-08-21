@@ -53,6 +53,7 @@ dependencies:
   http: ^1.1.0
   xml2json: ^6.2.0
   flutter_keyboard_visibility: ^5.4.1
+  rxdart: ^0.27.7
   
 
 dev_dependencies:
