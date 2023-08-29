@@ -3,6 +3,13 @@
 import 'package:flutter/material.dart';
 
 class Constants {
+  static const cardColors = [
+    Color.fromRGBO(145, 155, 157, 1),
+    Color.fromRGBO(211, 124, 97, 1),
+    Color.fromRGBO(223, 212, 109, 1),
+    Color.fromRGBO(127, 92, 217, 1),
+    Color.fromRGBO(118, 188, 123, 1),
+  ];
   static const google = 'assets/images/google.svg';
   static const logo = 'assets/images/logo.svg';
   static const github = 'assets/images/github.svg';
@@ -20,4 +27,9 @@ class Constants {
   static const compas = 'assets/images/compas.svg';
   static const avatar = 'assets/images/avatar.svg';
   static const arrow = 'assets/images/arrow.svg';
+  static const home = 'assets/images/Home.svg';
+
+  static const host = 'assets/images/Host.svg';
+
+  static const profileV2 = 'assets/images/Profile.svg';
 }

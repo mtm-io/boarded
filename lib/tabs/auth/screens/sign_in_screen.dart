@@ -86,7 +86,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge!
-                            .copyWith(fontWeight: FontWeight.w700),
+                            .copyWith(fontWeight: FontWeight.w500),
                       ),
                     ),
                   ),
@@ -218,7 +218,7 @@ class AuthAppleCard extends StatelessWidget {
               ),
               color: Pallete.blackColor,
             ),
-            height: 340.4.h,
+            height: 340.4.sp,
             width: 348.w,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -247,7 +247,7 @@ class AuthAppleCard extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
-                          .copyWith(fontWeight: FontWeight.w700),
+                          .copyWith(fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
@@ -298,7 +298,7 @@ class AuthGoogleCard extends ConsumerWidget {
               ),
             ),
             height: 269.8
-                .h, // Adjust this height to control the height of the clipped container
+                .sp, // Adjust this height to control the height of the clipped container
             width: 348.w,
 
             child: Row(
@@ -328,7 +328,7 @@ class AuthGoogleCard extends ConsumerWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
-                          .copyWith(fontWeight: FontWeight.w700),
+                          .copyWith(fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
@@ -378,8 +378,8 @@ class AuthGitHubCard extends ConsumerWidget {
                 width: 1,
               ),
             ),
-            height: 160
-                .h
+            height: 140
+                .sp
                 .h, // Adjust this height to control the height of the clipped container
             width: 348.w,
 
@@ -410,7 +410,7 @@ class AuthGitHubCard extends ConsumerWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
-                          .copyWith(fontWeight: FontWeight.w700),
+                          .copyWith(fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),

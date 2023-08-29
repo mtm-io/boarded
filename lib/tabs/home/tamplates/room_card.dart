@@ -1,10 +1,14 @@
-import 'package:boarded/core/constants/constants.dart';
-import 'package:boarded/core/constants/my_text.dart';
-import 'package:boarded/tabs/home/tamplates/tag.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:boarded/core/constants/constants.dart';
+import 'package:boarded/core/constants/my_text.dart';
+import 'package:boarded/tabs/home/tamplates/tag.dart';
 
 class RoomCard extends ConsumerStatefulWidget {
   final List<String> images;
@@ -15,11 +19,7 @@ class RoomCard extends ConsumerStatefulWidget {
 
   const RoomCard({
     super.key,
-    this.images = const [
-      'https://pbs.twimg.com/media/D8dDZukXUAAXLdY.jpg',
-      'https://pbs.twimg.com/profile_images/1249432648684109824/J0k1DN1T_400x400.jpg',
-      'https://i0.wp.com/thatrandomagency.com/wp-content/uploads/2021/06/headshot.png?resize=618%2C617&ssl=1',
-    ],
+    this.images = const [],
     required this.title,
     required this.time,
     required this.place,
@@ -36,7 +36,8 @@ class _RoomCardState extends ConsumerState<RoomCard> {
   late String title = widget.title;
   late String time = widget.time;
   late String place = widget.place;
-
+  final cardColor =
+      Constants.cardColors[Random().nextInt(Constants.cardColors.length)];
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -51,54 +52,58 @@ class _RoomCardState extends ConsumerState<RoomCard> {
           borderRadius: BorderRadius.all(
             Radius.circular(23.r),
           ),
-          color: Color.fromRGBO(118, 188, 123, 1),
+          color: cardColor,
         ),
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.only(left: 23.w, top: 23.h),
+          padding: EdgeInsets.only(left: 23.w, top: 23.h, right: 10.w),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 7.h),
-                    child: MyText(
-                      time,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(
-                        fontSize: 17.sp,
-                        height: 1.sp,
-                        color: Color.fromRGBO(0, 0, 0, 0.5),
-                        fontWeight: FontWeight.w500,
+              Padding(
+                padding: EdgeInsets.only(right: 20.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 3.sp),
+                      child: MyText(
+                        time,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                          fontSize: 17.sp,
+                          height: 1.sp,
+                          color: Color.fromRGBO(0, 0, 0, 0.5),
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
-                  ),
-                  MyText(
-                    title,
-                    overflow: TextOverflow.clip,
-                    style: TextStyle(
-                      height: 1.sp,
-                      color: Color.fromRGBO(0, 0, 0, 1),
-                      fontWeight: FontWeight.w700,
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 3.sp),
+                      child: MyText(
+                        title,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                          fontSize: 23.sp,
+                          height: 1.sp,
+                          color: Color.fromRGBO(0, 0, 0, 1),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 7.h),
-                    child: MyText(
+                    MyText(
                       place,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
                         fontSize: 17.sp,
                         height: 1.sp,
                         color: Color.fromRGBO(0, 0, 0, 0.5),
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -108,90 +113,114 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                   spacing: 5.h,
                   runSpacing: 5.h,
                   children: [
-                    for (int i = 0;
-                        i < (tags.length < 5 ? tags.length : 5);
-                        i++)
-                      BoardedTag(tags[i]),
+                    if (tags.length <= 5)
+                      for (int i = 0; i < tags.length; i++) BoardedTag(tags[i]),
+                    if (tags.length > 5) ...[
+                      for (int i = 0; i < 5; i++) BoardedTag(tags[i]),
+                      BoardedTag("+${tags.length - 5}"),
+                    ],
                   ],
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(
                   top: 20.h,
-                  bottom: 8.h,
                   left: 2.w,
                 ),
                 child: Row(
                   children: [
-                    MyText(
-                      "Players:   ",
-                      style: TextStyle(
-                        fontSize: 17.sp,
-                        height: 1.sp,
-                        color: Color.fromRGBO(0, 0, 0, 0.5),
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        for (int i = 0;
-                            i < (images.length < 3 ? images.length : 3);
-                            i++)
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 0),
-                            child: Align(
-                              widthFactor: 0.6,
-                              child: CircleAvatar(
-                                radius: 17.sp,
-                                backgroundColor:
-                                    Color.fromRGBO(118, 188, 123, 1),
-                                child: CircleAvatar(
-                                  radius: 15.sp,
-                                  backgroundImage: NetworkImage(
-                                    images[i],
-                                  ),
-                                ),
-                              ),
+                    images.isEmpty
+                        ? const SizedBox()
+                        : MyText(
+                            "Players:   ",
+                            style: TextStyle(
+                              fontSize: 17.sp,
+                              height: 1.sp,
+                              color: Color.fromRGBO(0, 0, 0, 0.5),
+                              fontWeight: FontWeight.w300,
                             ),
                           ),
-                        Align(
-                          widthFactor: 0.6,
+                    if (images.isEmpty)
+                      MyText(
+                        "Be the first to join!",
+                        style: TextStyle(
+                          fontSize: 17.sp,
+                          height: 1.sp,
+                          color: Color.fromRGBO(0, 0, 0, 0.5),
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    if (images.length <= 3 && images.isNotEmpty)
+                      for (int i = 0; i < images.length; i++)
+                        PlayerImage(image: images[i], color: cardColor),
+                    if (images.length > 3) ...[
+                      for (int i = 0; i < 3; i++)
+                        PlayerImage(image: images[i], color: cardColor),
+                      Align(
+                        widthFactor: 0.6,
+                        child: CircleAvatar(
+                          radius: 17.sp,
+                          backgroundColor: cardColor,
                           child: CircleAvatar(
-                            radius: 17.sp,
-                            backgroundColor: Color.fromRGBO(118, 188, 123, 1),
-                            child: CircleAvatar(
-                              backgroundColor: Color.fromRGBO(31, 0, 0, 0.12),
-                              radius: 15.sp,
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 2.8.h),
-                                child: MyText(
-                                  "+2",
-                                  style: TextStyle(
-                                    fontSize: 13.sp,
-                                    height: 1.sp,
-                                    color: Color.fromRGBO(0, 0, 0, 1),
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                            backgroundColor: Color.fromRGBO(31, 0, 0, 0.12),
+                            radius: 15.sp,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 2.8.h),
+                              child: MyText(
+                                "+${images.length - 3}",
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  height: 1.sp,
+                                  color: Color.fromRGBO(0, 0, 0, 1),
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                     const Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(
-                        right: 10.w,
-                      ),
+                      padding: EdgeInsets.only(bottom: 5.h),
                       child: SvgPicture.asset(
                         Constants.arrow,
+                        width: 60.sp,
+                        height: 60.sp,
                       ),
                     )
                   ],
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PlayerImage extends StatelessWidget {
+  final String image;
+  final Color color;
+
+  const PlayerImage({
+    Key? key,
+    required this.color,
+    required this.image,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      widthFactor: 0.6,
+      child: CircleAvatar(
+        radius: 17.sp,
+        backgroundColor: color,
+        child: CircleAvatar(
+          radius: 15.sp,
+          backgroundImage: NetworkImage(
+            image,
           ),
         ),
       ),

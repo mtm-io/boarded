@@ -33,7 +33,7 @@ class BoardedTag extends StatelessWidget {
             fontSize: 13.sp,
             height: 1.sp,
             color: Color.fromRGBO(0, 0, 0, 1),
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
