@@ -54,6 +54,8 @@ dependencies:
   xml2json: ^6.2.0
   flutter_keyboard_visibility: ^5.4.1
   rxdart: ^0.27.7
+  animations: ^2.0.7
+  
   
 
 dev_dependencies:
@@ -69,7 +71,12 @@ flutter:
   fonts:
     - family: SpaceGrotesk
       fonts:
-        - asset: assets/fonts/SpaceGrotesk-VariableFont_wght.ttf
+        - asset: assets/fonts/SpaceGrotesk-Regular.otf
+          weight: 500
+        - asset: assets/fonts/SpaceGrotesk-Bold.otf
+          weight: 700
+        - asset: assets/fonts/SpaceGrotesk-Medium.otf
+          weight: 600
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
