@@ -28,6 +28,18 @@ class Constants {
   static const avatar = 'assets/images/avatar.svg';
   static const arrow = 'assets/images/arrow.svg';
   static const home = 'assets/images/Home.svg';
+//Search Icons
+  static const notify = 'assets/images/notify.svg';
+//
+
+// Categorie Icons
+  static const city = 'assets/images/City.svg';
+  static const number = 'assets/images/Number.svg';
+  static const category = 'assets/images/Union.svg';
+  static const time = 'assets/images/Time.svg';
+  static const online = 'assets/images/online.svg';
+  static const language = 'assets/images/language.svg';
+//
 
   static const host = 'assets/images/Host.svg';
 
