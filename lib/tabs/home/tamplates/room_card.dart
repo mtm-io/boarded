@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +14,8 @@ class RoomCard extends ConsumerStatefulWidget {
   final String time;
   final String place;
   final List<String> tags;
+  final void Function()? onArrowTap;
+  final int cardColorNum;
 
   const RoomCard({
     super.key,
@@ -23,7 +23,9 @@ class RoomCard extends ConsumerStatefulWidget {
     required this.title,
     required this.time,
     required this.place,
+    required this.cardColorNum,
     this.tags = const [],
+    this.onArrowTap,
   });
 
   @override
@@ -36,8 +38,9 @@ class _RoomCardState extends ConsumerState<RoomCard> {
   late String title = widget.title;
   late String time = widget.time;
   late String place = widget.place;
-  final cardColor =
-      Constants.cardColors[Random().nextInt(Constants.cardColors.length)];
+  late Function()? onArrowTap = widget.onArrowTap;
+  late int cardColorNum = widget.cardColorNum;
+  late Color cardColor = Constants.cardColors[cardColorNum];
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -151,11 +154,9 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                         ),
                       ),
                     if (images.length <= 3 && images.isNotEmpty)
-                      for (int i = 0; i < images.length; i++)
-                        PlayerImage(image: images[i], color: cardColor),
+                      for (int i = 0; i < images.length; i++) PlayerImage(image: images[i], color: cardColor),
                     if (images.length > 3) ...[
-                      for (int i = 0; i < 3; i++)
-                        PlayerImage(image: images[i], color: cardColor),
+                      for (int i = 0; i < 3; i++) PlayerImage(image: images[i], color: cardColor),
                       Align(
                         widthFactor: 0.6,
                         child: CircleAvatar(
@@ -183,10 +184,13 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                     const Spacer(),
                     Padding(
                       padding: EdgeInsets.only(bottom: 5.h),
-                      child: SvgPicture.asset(
-                        Constants.arrow,
-                        width: 60.sp,
-                        height: 60.sp,
+                      child: GestureDetector(
+                        onTap: () => onArrowTap!(),
+                        child: SvgPicture.asset(
+                          Constants.arrow,
+                          width: 60.sp,
+                          height: 60.sp,
+                        ),
                       ),
                     )
                   ],

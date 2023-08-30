@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
-import '../../../core/common/anim_searchbar.dart';
+import 'package:boarded/core/common/anim_searchbar.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -29,8 +29,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     return SafeArea(
       child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(
-                MediaQuery.of(context).size.height / 10), // Set this height
+            preferredSize: Size.fromHeight(MediaQuery.of(context).size.height / 10), // Set this height
             child: Container(
               decoration: BoxDecoration(
                 border: const GradientBoxBorder(
@@ -65,9 +64,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ? SizedBox()
                             : Text(
                                 "Search",
-                                style: TextStyle(
-                                    fontSize: 26.sp,
-                                    fontWeight: FontWeight.w500),
+                                style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
                               ),
                       ),
                       Spacer(),
@@ -78,8 +75,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             child: AnimSearchBar(
                               height: 45.h,
                               searchBarOpen: (isOpen) {
-                                Future.delayed(const Duration(milliseconds: 80),
-                                    () {
+                                Future.delayed(const Duration(milliseconds: 80), () {
                                   setState(() {
                                     if (isOpen == 1) {
                                       _isOpen = true;
@@ -100,8 +96,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 print(text);
                               },
                               autoFocus: false,
-                              style: TextStyle(
-                                  fontSize: 17.sp, color: Pallete.whiteColor),
+                              style: TextStyle(fontSize: 17.sp, color: Pallete.whiteColor),
                               textFieldColor: Pallete.blackColor,
                               searchIconColor: Pallete.whiteColor,
                               color: Pallete.blackColor,
@@ -135,6 +130,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   "Exploding Kittens",
                   "Alias",
                 ],
+                cardColorNum: 1,
               ),
               RoomCard(
                 images: randomImages,
@@ -146,6 +142,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   "Just Chatting",
                   "Alias",
                 ],
+                cardColorNum: 2,
               ),
               RoomCard(
                 images: randomImages,
@@ -160,6 +157,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   "Jaust Chilling",
                   "Soap",
                 ],
+                cardColorNum: 3,
               ),
             ],
           )),

@@ -23,7 +23,7 @@ class BoardGames {
 
   factory BoardGames.fromMap(Map<String, dynamic> map) {
     return BoardGames(
-      name: map['name'] as String,
+      name: map['name'],
     );
   }
 
