@@ -67,7 +67,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 3.sp),
+                      padding: EdgeInsets.only(bottom: 7.sp),
                       child: MyText(
                         time,
                         overflow: TextOverflow.clip,
@@ -80,7 +80,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 3.sp),
+                      padding: EdgeInsets.only(bottom: 7.sp),
                       child: MyText(
                         title,
                         overflow: TextOverflow.clip,
@@ -124,10 +124,11 @@ class _RoomCardState extends ConsumerState<RoomCard> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  top: 20.h,
+                  top: 0.h,
                   left: 2.w,
                 ),
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     images.isEmpty
                         ? const SizedBox()
@@ -182,7 +183,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                     ],
                     const Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 5.h),
+                      padding: EdgeInsets.only(bottom: 12.h),
                       child: SvgPicture.asset(
                         Constants.arrow,
                         width: 60.sp,

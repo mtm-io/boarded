@@ -160,7 +160,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               ? null
               : [
                   BoxShadow(
-                    color: Colors.black26,
+                    color: Colors.black,
                     spreadRadius: -10.0.r,
                     blurRadius: 10.0.r,
                     offset: Offset(0.0, 10.0.r),
@@ -233,7 +233,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     builder: (context, widget) {
                       ///Using Transform.rotate to rotate the suffix icon when it gets expanded
                       return Transform.rotate(
-                        angle: _con.value * 2.0 * pi,
+                        angle: _con.value * 1.0 * pi,
                         child: widget,
                       );
                     },
@@ -246,17 +246,17 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               duration: Duration(milliseconds: widget.animationDurationInMilli),
               left: (toggle == 0) ? 20.0 : 40.0,
               curve: Curves.easeOut,
-              top: 9.5.w,
+              top: 9.5.h,
 
               ///Using Animated opacity to change the opacity of th textField while expanding
               child: AnimatedOpacity(
                 opacity: (toggle == 0) ? 0.0 : 1.0,
                 duration: Duration(milliseconds: 200),
                 child: Container(
-                  height: 20.h,
+                  height: 23.h,
                   padding: EdgeInsets.only(left: 5.w),
                   alignment: Alignment.center,
-                  width: widget.width / 1.2,
+                  width: widget.width / 1.3,
                   child: TextField(
                     ///Text Controller. you can manipulate the text inside this textField by calling this controller.
                     controller: widget.textController,
@@ -264,8 +264,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     focusNode: focusNode,
                     textInputAction: widget.textInputAction,
                     cursorRadius: Radius.circular(10.0),
-                    cursorWidth: 2.5.sp,
-                    cursorHeight: 15.sp,
+                    cursorWidth: 1.5.sp,
+                    cursorHeight: 15.h,
 
                     onChanged: (value) {
                       textFieldValue = value;
@@ -293,13 +293,13 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                         : TextStyle(color: Colors.black),
                     cursorColor: Colors.white,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(bottom: 0.h),
+                      contentPadding: EdgeInsets.only(bottom: 0.h, top: 0.h),
                       isDense: false,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       labelText: widget.helpText,
                       labelStyle: TextStyle(
                         color: Color(0xff5B5B5B),
-                        fontSize: 17.0.sp,
+                        fontSize: 15.0.sp,
                         fontWeight: FontWeight.w500,
                       ),
                       alignLabelWithHint: true,
@@ -321,9 +321,10 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               borderRadius: BorderRadius.circular(30.0),
 
               child: Padding(
-                padding: EdgeInsets.only(bottom: 10.h),
+                padding: EdgeInsets.only(bottom: 15.h),
                 child: IconButton(
-                  splashRadius: 19.0.r,
+                  enableFeedback: false,
+                  splashRadius: 0.000001,
 
                   ///if toggle is 1, which means it's open. so show the back icon, which will close it.
                   ///if the toggle is 0, which means it's closed, so tapping on it will expand the widget.
@@ -363,7 +364,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
 
                           ///if the autoFocus is true, the keyboard will close, automatically
                           setState(() {
-                            if (widget.autoFocus) unfocusKeyboard();
+                            // if (widget.autoFocus)
+                            unfocusKeyboard();
                           });
 
                           ///reverse == close
