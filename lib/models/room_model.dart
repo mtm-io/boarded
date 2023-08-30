@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 class Room {
@@ -9,7 +12,9 @@ class Room {
   final List<String> members;
   final List<String> admin;
   final List<String> games;
-  final String startDateTime;
+  final List<String> pfps;
+  final int cardColor;
+  final DateTime startDateTime;
   Room({
     required this.id,
     required this.name,
@@ -19,6 +24,8 @@ class Room {
     required this.members,
     required this.admin,
     required this.games,
+    required this.pfps,
+    required this.cardColor,
     required this.startDateTime,
   });
 
@@ -31,7 +38,9 @@ class Room {
     List<String>? members,
     List<String>? admin,
     List<String>? games,
-    String? startDateTime,
+    List<String>? pfps,
+    int? cardColor,
+    DateTime? startDateTime,
   }) {
     return Room(
       id: id ?? this.id,
@@ -42,6 +51,8 @@ class Room {
       members: members ?? this.members,
       admin: admin ?? this.admin,
       games: games ?? this.games,
+      pfps: pfps ?? this.pfps,
+      cardColor: cardColor ?? this.cardColor,
       startDateTime: startDateTime ?? this.startDateTime,
     );
   }
@@ -56,7 +67,9 @@ class Room {
       'members': members,
       'admin': admin,
       'games': games,
-      'startDateTime': startDateTime,
+      'pfps': pfps,
+      'cardColor': cardColor,
+      'startDateTime': startDateTime.millisecondsSinceEpoch,
     };
   }
 
@@ -67,16 +80,18 @@ class Room {
       description: map['description'] as String,
       city: map['city'] as String,
       address: map['address'] as String,
-      members: List<String>.from((map['members'] as List<String>)),
-      admin: List<String>.from((map['admin'] as List<String>)),
-      games: List<String>.from((map['games'] as List<String>)),
-      startDateTime: map['startDateTime'] as String,
+      members: List<String>.from(map['members']),
+      admin: List<String>.from(map['admin']),
+      games: List<String>.from(map['games']),
+      pfps: List<String>.from(map['pfps']),
+      cardColor: map['cardColor'] as int,
+      startDateTime: DateTime.fromMillisecondsSinceEpoch(map['startDateTime'] as int),
     );
   }
 
   @override
   String toString() {
-    return 'Room(id: $id, name: $name, description: $description, city: $city, address: $address, members: $members, admin: $admin, games: $games, startDateTime: $startDateTime)';
+    return 'Room(id: $id, name: $name, description: $description, city: $city, address: $address, members: $members, admin: $admin, games: $games, pfps: $pfps, cardColor: $cardColor, startDateTime: $startDateTime)';
   }
 
   @override
@@ -91,6 +106,8 @@ class Room {
         listEquals(other.members, members) &&
         listEquals(other.admin, admin) &&
         listEquals(other.games, games) &&
+        listEquals(other.pfps, pfps) &&
+        other.cardColor == cardColor &&
         other.startDateTime == startDateTime;
   }
 
@@ -104,6 +121,12 @@ class Room {
         members.hashCode ^
         admin.hashCode ^
         games.hashCode ^
+        pfps.hashCode ^
+        cardColor.hashCode ^
         startDateTime.hashCode;
   }
+
+  String toJson() => json.encode(toMap());
+
+  factory Room.fromJson(String source) => Room.fromMap(json.decode(source) as Map<String, dynamic>);
 }
