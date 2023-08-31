@@ -15,7 +15,8 @@ class RoomScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider)!;
+    //final user = ref.watch(userProvider)!;
+
     return Container(
         child: ref.watch(getRoomByNameProvider(name)).when(
               data: (room) => Scaffold(
@@ -29,7 +30,8 @@ class RoomScreen extends ConsumerWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(DateFormat('E, M.dd, HH:mm').format(room.startDateTime)),
+                    Text(DateFormat('E, M.dd, HH:mm')
+                        .format(room.startDateTime)),
                     SizedBox(
                       height: 20,
                     ),
@@ -37,15 +39,17 @@ class RoomScreen extends ConsumerWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    room.admin.contains(user.uid)
-                        ? ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Edit'),
-                          )
-                        : ElevatedButton(
-                            onPressed: () {},
-                            child: Text(room.members.contains(user.uid) ? 'Joined' : 'Join'),
-                          ),
+                    //room.admin.contains(user.uid)
+                    //    ? ElevatedButton(
+                    //        onPressed: () {},
+                    //        child: Text('Edit'),
+                    //      )
+                    //    : ElevatedButton(
+                    //        onPressed: () {},
+                    //        child: Text(room.members.contains(user.uid)
+                    //            ? 'Joined'
+                    //            : 'Join'),
+                    //      ),
                   ],
                 ),
               ),

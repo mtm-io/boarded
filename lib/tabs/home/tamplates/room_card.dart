@@ -127,7 +127,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  top: 20.h,
+                  top: 10.h,
                   left: 2.w,
                 ),
                 child: Row(
@@ -154,9 +154,11 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                         ),
                       ),
                     if (images.length <= 3 && images.isNotEmpty)
-                      for (int i = 0; i < images.length; i++) PlayerImage(image: images[i], color: cardColor),
+                      for (int i = 0; i < images.length; i++)
+                        PlayerImage(image: images[i], color: cardColor),
                     if (images.length > 3) ...[
-                      for (int i = 0; i < 3; i++) PlayerImage(image: images[i], color: cardColor),
+                      for (int i = 0; i < 3; i++)
+                        PlayerImage(image: images[i], color: cardColor),
                       Align(
                         widthFactor: 0.6,
                         child: CircleAvatar(
@@ -183,7 +185,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                     ],
                     const Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 5.h),
+                      padding: EdgeInsets.only(bottom: 12.h),
                       child: GestureDetector(
                         onTap: () => onArrowTap!(),
                         child: SvgPicture.asset(
