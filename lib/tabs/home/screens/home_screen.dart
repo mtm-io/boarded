@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
-import '../../../core/common/anim_searchbar.dart';
+import 'package:boarded/core/common/anim_searchbar.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -83,7 +83,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       fontWeight: FontWeight.w500),
                                 ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         _isBellOpen
                             ? const SizedBox(width: 0)
                             : Padding(
@@ -97,7 +97,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 ),
                               ),
                         Padding(
-                          padding: EdgeInsets.only(right: 14.w),
+                          padding: EdgeInsets.only(right: 15.w),
                           child: SafeArea(
                             child: ClipRect(
                               child: AnimSearchBar(
@@ -128,7 +128,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     }
                                   });
                                 },
-                                width: MediaQuery.of(context).size.width - 28.w,
+                                width: MediaQuery.of(context).size.width - 30.w,
                                 textController: textController,
                                 onSuffixTap: () {
                                   //setState(() {
@@ -188,6 +188,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   "Exploding Kittens",
                   "Alias",
                 ],
+                cardColorNum: 1,
               ),
               RoomCard(
                 images: randomImages,
@@ -199,6 +200,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   "Just Chatting",
                   "Alias",
                 ],
+                cardColorNum: 2,
               ),
               RoomCard(
                 images: randomImages,
@@ -213,6 +215,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   "Jaust Chilling",
                   "Soap",
                 ],
+                cardColorNum: 3,
               ),
             ],
           )),

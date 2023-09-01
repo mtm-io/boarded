@@ -18,17 +18,6 @@ class RoomRepository {
 
   FutureVoid createRoom(Room room) async {
     try {
-      // Beta Dummy veritification
-      // TODO: make a valid verification with custom errors for every field
-      // e.g. "Room description can't be null!"
-      if (room.name.length < 5 ||
-          room.description.length < 5 ||
-          room.games.isEmpty ||
-          room.address.length < 5 ||
-          room.startDateTime.length < 3) {
-        print(room);
-        throw 'Enter all the fields!';
-      }
       return right(_rooms.doc(room.id).set(room.toMap()));
     } on FirebaseException catch (e) {
       throw e.message!;
@@ -37,13 +26,25 @@ class RoomRepository {
     }
   }
 
+  Stream<List<Room>> getUserRooms(String uid) {
+    return _rooms.where('members', arrayContains: uid).snapshots().map((event) {
+      List<Room> rooms = [];
+      for (var doc in event.docs) {
+        rooms.add(Room.fromMap(doc.data() as Map<String, dynamic>));
+      }
+      return rooms;
+    });
+  }
+
+  // Stream<Room> getRoomById(String id) {
+  //   return _rooms.doc(id).snapshots().map((event) => Room.fromMap(event.data() as Map<String, dynamic>));
+  // }
+
   CollectionReference get _rooms =>
       _firestore.collection(FirebaseConstants.roomsCollection);
-  CollectionReference get _games =>
-      _firestore.collection(FirebaseConstants.gamesCollection);
+  // CollectionReference get _games => _firestore.collection(FirebaseConstants.gamesCollection);
 
-  Stream<QuerySnapshot> getBoardGames() {
-    return _games
-        .snapshots(); //.map((event) => BoardGames.fromMap(event.data() as Map<String, dynamic>));
-  }
+  // Stream<QuerySnapshot> getBoardGames() {
+  //   return _games.snapshots(); //.map((event) => BoardGames.fromMap(event.data() as Map<String, dynamic>));
+  // }
 }
