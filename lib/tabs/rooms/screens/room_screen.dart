@@ -18,43 +18,44 @@ class RoomScreen extends ConsumerWidget {
     //final user = ref.watch(userProvider)!;
 
     return Container(
-        child: ref.watch(getRoomByNameProvider(name)).when(
-              data: (room) => Scaffold(
-                appBar: AppBar(title: Text(room.name)),
-                body: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(room.address),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(DateFormat('E, M.dd, HH:mm')
-                        .format(room.startDateTime)),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(room.description),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    //room.admin.contains(user.uid)
-                    //    ? ElevatedButton(
-                    //        onPressed: () {},
-                    //        child: Text('Edit'),
-                    //      )
-                    //    : ElevatedButton(
-                    //        onPressed: () {},
-                    //        child: Text(room.members.contains(user.uid)
-                    //            ? 'Joined'
-                    //            : 'Join'),
-                    //      ),
-                  ],
-                ),
-              ),
-              error: (error, stackTrace) => ErrorText(error: error.toString()),
-              loading: () => const Loader(),
-            ));
+        //  child: ref.watch(getRoomByNameProvider(name)).when(
+        //        data: (room) => Scaffold(
+        //          appBar: AppBar(title: Text(room.name)),
+        //          body: Column(
+        //            children: [
+        //              SizedBox(
+        //                height: 20,
+        //              ),
+        //              Text(room.address),
+        //              SizedBox(
+        //                height: 20,
+        //              ),
+        //              Text(DateFormat('E, M.dd, HH:mm')
+        //                  .format(room.startDateTime)),
+        //              SizedBox(
+        //                height: 20,
+        //              ),
+        //              Text(room.description),
+        //              SizedBox(
+        //                height: 20,
+        //              ),
+        //              //room.admin.contains(user.uid)
+        //              //    ? ElevatedButton(
+        //              //        onPressed: () {},
+        //              //        child: Text('Edit'),
+        //              //      )
+        //              //    : ElevatedButton(
+        //              //        onPressed: () {},
+        //              //        child: Text(room.members.contains(user.uid)
+        //              //            ? 'Joined'
+        //              //            : 'Join'),
+        //              //      ),
+        //            ],
+        //          ),
+        //        ),
+        //        error: (error, stackTrace) => ErrorText(error: error.toString()),
+        //        loading: () => const Loader(),
+        //      )
+        );
   }
 }

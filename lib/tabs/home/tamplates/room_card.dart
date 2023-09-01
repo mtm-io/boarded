@@ -187,7 +187,8 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 12.h),
                       child: GestureDetector(
-                        onTap: () => onArrowTap!(),
+                        // onTap: () => onArrowTap!(),
+                        onTap: () {},
                         child: SvgPicture.asset(
                           Constants.arrow,
                           width: 60.sp,
