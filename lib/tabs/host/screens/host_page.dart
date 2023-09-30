@@ -1,5 +1,6 @@
 import 'package:boarded/core/common/error_text.dart';
 import 'package:boarded/core/common/loader.dart';
+import 'package:boarded/core/constants/my_text.dart';
 import 'package:boarded/models/room_model.dart';
 import 'package:boarded/tabs/auth/controller/auth_controller.dart';
 import 'package:boarded/tabs/home/tamplates/room_card.dart';
@@ -24,6 +25,7 @@ class HostPage extends ConsumerStatefulWidget {
 }
 
 class _HostPageState extends ConsumerState<HostPage> {
+  //late String user;
   void navigateToCreateRoom(BuildContext context) {
     Routemaster.of(context).push('/create-room');
   }
@@ -31,6 +33,7 @@ class _HostPageState extends ConsumerState<HostPage> {
   void navigateToRoom(BuildContext context, Room room) {
     Routemaster.of(context).push('/room/${room.id}');
   }
+
 
   void _scaleDialog() {}
 
@@ -59,11 +62,12 @@ class _HostPageState extends ConsumerState<HostPage> {
     final user = ref.watch(userProvider)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(user.name),
-      ),
       body: Column(
         children: [
+          // Padding(
+          //   padding: EdgeInsets.only(top: 50.0.h, bottom: 20.h),
+          //   child: MyText(user.name),
+          // ),
           ElevatedButton(
             child: const Text("Create Room"),
             onPressed: () => navigateToCreateRoom(context),
@@ -77,19 +81,23 @@ class _HostPageState extends ConsumerState<HostPage> {
           ref.watch(userRoomsProvider).when(
                 data: (rooms) => Expanded(
                   child: ListView.builder(
+
                     physics: BouncingScrollPhysics(),
                     itemCount: rooms.length,
                     itemBuilder: (BuildContext context, int index) {
                       final room = rooms[index];
+
                       final String time = DateFormat('E, M.dd, HH:mm')
                           .format(room.startDateTime);
                       // TODO: remove
+
                       List<String> randomImages = [
                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaOjCZSoaBhZyODYeQMDCOTICHfz_tia5ay8I_k3k&s',
                         'https://imgv3.fotor.com/images/cover-photo-image/a-beautiful-girl-with-gray-hair-and-lucxy-neckless-generated-by-Fotor-AI.jpg',
                         'https://pixlr.com/images/index/remove-bg.webp',
                         'https://images.pexels.com/photos/4154191/pexels-photo-4154191.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
                       ];
+
                       return GestureDetector(
                         child: HostCard(
                           title: room.name,
@@ -141,6 +149,7 @@ class _HostPageState extends ConsumerState<HostPage> {
                                 const Duration(milliseconds: 200),
                           );
                         },
+
                       );
                     },
                   ),

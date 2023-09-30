@@ -110,6 +110,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                     ],
                   ),
                 ),
+
                 Padding(
                   padding: EdgeInsets.only(
                     top: 16.h,
@@ -156,6 +157,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                             fontWeight: FontWeight.w300,
                           ),
                         ),
+
                       if (images.length <= 3 && images.isNotEmpty)
                         for (int i = 0; i < images.length; i++)
                           PlayerImage(image: images[i], color: cardColor),
@@ -164,6 +166,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                           PlayerImage(image: images[i], color: cardColor),
                         Align(
                           widthFactor: 0.6,
+
                           child: CircleAvatar(
                             radius: 17.sp,
                             backgroundColor: cardColor,
@@ -185,6 +188,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                             ),
                           ),
                         ),
+
                       ],
                       const Spacer(),
                       Padding(
