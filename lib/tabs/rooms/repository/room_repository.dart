@@ -13,7 +13,8 @@ final roomRepositoryProvider = Provider((ref) {
 
 class RoomRepository {
   final FirebaseFirestore _firestore;
-  RoomRepository({required FirebaseFirestore firestore}) : _firestore = firestore;
+  RoomRepository({required FirebaseFirestore firestore})
+      : _firestore = firestore;
 
   FutureVoid createRoom(Room room) async {
     try {
@@ -35,9 +36,10 @@ class RoomRepository {
     });
   }
 
-  Stream<Room> getRoomById(String id) {
-    return _rooms.doc(id).snapshots().map((event) => Room.fromMap(event.data() as Map<String, dynamic>));
-  }
+  // Stream<Room> getRoomById(String id) {
+  //   return _rooms.doc(id).snapshots().map((event) => Room.fromMap(event.data() as Map<String, dynamic>));
+  // }
+
 
   FutureVoid editRoom(Room room) async {
     try {
@@ -50,6 +52,7 @@ class RoomRepository {
   }
 
   CollectionReference get _rooms => _firestore.collection(FirebaseConstants.roomsCollection);
+
   // CollectionReference get _games => _firestore.collection(FirebaseConstants.gamesCollection);
 
   // Stream<QuerySnapshot> getBoardGames() {

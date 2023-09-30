@@ -104,6 +104,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> with SingleTickerProvid
   }
 
   @override
+
   Widget build(BuildContext context) {
     //final user = ref.watch(userProvider)!;
     //print(user);
@@ -297,6 +298,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> with SingleTickerProvid
               error: (error, stackTrace) => ErrorText(error: error.toString()),
               loading: () => const Loader(),
             ));
+
   }
 
   Widget boardGamesSelector(BuildContext context) {

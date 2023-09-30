@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,17 +7,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:boarded/core/constants/constants.dart';
 import 'package:boarded/core/constants/my_text.dart';
 import 'package:boarded/tabs/home/tamplates/tag.dart';
+import 'package:dotted_border/dotted_border.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import '../../../../utils/pallete.dart';
+import '../../../home/tamplates/room_card.dart';
 
-class RoomCard extends ConsumerStatefulWidget {
+const Color themeClolor = Colors.white;
+
+class OpendCard extends ConsumerStatefulWidget {
   final List<String> images;
   final String title;
   final String time;
   final String place;
+  final String description;
   final List<String> tags;
   final void Function()? onArrowTap;
   final int cardColorNum;
 
-  const RoomCard({
+  const OpendCard({
     super.key,
     this.images = const [],
     required this.title,
@@ -27,18 +33,20 @@ class RoomCard extends ConsumerStatefulWidget {
     required this.cardColorNum,
     this.tags = const [],
     this.onArrowTap,
+    this.description = "",
   });
 
   @override
-  ConsumerState<RoomCard> createState() => _RoomCardState();
+  ConsumerState<OpendCard> createState() => _OpendCardState();
 }
 
-class _RoomCardState extends ConsumerState<RoomCard> {
+class _OpendCardState extends ConsumerState<OpendCard> {
   late List<String> images = widget.images;
   late List<String> tags = widget.tags;
   late String title = widget.title;
   late String time = widget.time;
   late String place = widget.place;
+  late String description = widget.description;
   late Function()? onArrowTap = widget.onArrowTap;
   late int cardColorNum = widget.cardColorNum;
   late Color cardColor = Constants.cardColors[cardColorNum];
@@ -46,18 +54,33 @@ class _RoomCardState extends ConsumerState<RoomCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        right: 14.w,
-        left: 14.w,
+        right: 3.w,
+        left: 3.w,
         bottom: 6.h,
         top: 6.h,
       ),
       child: Material(
+        // ignore: sort_child_properties_last
         child: Container(
           decoration: BoxDecoration(
+            border: GradientBoxBorder(
+              width: 2,
+              gradient: LinearGradient(
+                colors: [
+                  cardColor,
+                  Colors.white,
+                  cardColor,
+                  Colors.white,
+                  cardColor,
+                ],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+              ),
+            ),
             borderRadius: BorderRadius.all(
               Radius.circular(23.r),
             ),
-            color: cardColor,
+            color: Colors.black,
           ),
           width: double.infinity,
           child: Padding(
@@ -79,7 +102,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                           style: TextStyle(
                             fontSize: 17.sp,
                             height: 1.sp,
-                            color: Color.fromRGBO(0, 0, 0, 0.5),
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
                             fontWeight: FontWeight.w300,
                           ),
                         ),
@@ -92,7 +115,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                           style: TextStyle(
                             fontSize: 23.sp,
                             height: 1.sp,
-                            color: Color.fromRGBO(0, 0, 0, 1),
+                            color: themeClolor,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -103,14 +126,13 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                         style: TextStyle(
                           fontSize: 17.sp,
                           height: 1.sp,
-                          color: Color.fromRGBO(0, 0, 0, 0.5),
+                          color: Color.fromRGBO(255, 255, 255, 0.5),
                           fontWeight: FontWeight.w300,
                         ),
                       ),
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.only(
                     top: 16.h,
@@ -121,10 +143,10 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                     children: [
                       if (tags.length <= 5)
                         for (int i = 0; i < tags.length; i++)
-                          BoardedTag(tags[i]),
+                          BoardedTagHost(tags[i]),
                       if (tags.length > 5) ...[
-                        for (int i = 0; i < 5; i++) BoardedTag(tags[i]),
-                        BoardedTag("+${tags.length - 5}"),
+                        for (int i = 0; i < 5; i++) BoardedTagHost(tags[i]),
+                        BoardedTagHost("+${tags.length - 5}"),
                       ],
                     ],
                   ),
@@ -143,7 +165,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                               style: TextStyle(
                                 fontSize: 17.sp,
                                 height: 1.sp,
-                                color: Color.fromRGBO(0, 0, 0, 0.5),
+                                color: themeClolor,
                                 fontWeight: FontWeight.w300,
                               ),
                             ),
@@ -153,25 +175,23 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                           style: TextStyle(
                             fontSize: 17.sp,
                             height: 1.sp,
-                            color: Color.fromRGBO(0, 0, 0, 0.5),
+                            color: themeClolor,
                             fontWeight: FontWeight.w300,
                           ),
                         ),
-
                       if (images.length <= 3 && images.isNotEmpty)
                         for (int i = 0; i < images.length; i++)
-                          PlayerImage(image: images[i], color: cardColor),
+                          PlayerImage(image: images[i], color: Colors.black),
                       if (images.length > 3) ...[
                         for (int i = 0; i < 3; i++)
-                          PlayerImage(image: images[i], color: cardColor),
+                          PlayerImage(image: images[i], color: Colors.black),
                         Align(
                           widthFactor: 0.6,
-
                           child: CircleAvatar(
                             radius: 17.sp,
-                            backgroundColor: cardColor,
+                            backgroundColor: Colors.black,
                             child: CircleAvatar(
-                              backgroundColor: Color.fromRGBO(31, 0, 0, 0.12),
+                              backgroundColor: Color.fromRGBO(26, 26, 26, 1),
                               radius: 15.sp,
                               child: Padding(
                                 padding: EdgeInsets.only(top: 2.8.h),
@@ -180,7 +200,7 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                                   style: TextStyle(
                                     fontSize: 13.sp,
                                     height: 1.sp,
-                                    color: Color.fromRGBO(0, 0, 0, 1),
+                                    color: themeClolor,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -188,7 +208,6 @@ class _RoomCardState extends ConsumerState<RoomCard> {
                             ),
                           ),
                         ),
-
                       ],
                       const Spacer(),
                       Padding(
@@ -215,27 +234,38 @@ class _RoomCardState extends ConsumerState<RoomCard> {
   }
 }
 
-class PlayerImage extends StatelessWidget {
-  final String image;
-  final Color color;
+class BoardedTagHost extends StatelessWidget {
+  final String text;
 
-  const PlayerImage({
-    Key? key,
-    required this.color,
-    required this.image,
-  }) : super(key: key);
+  const BoardedTagHost(
+    this.text, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      widthFactor: 0.6,
-      child: CircleAvatar(
-        radius: 17.sp,
-        backgroundColor: color,
-        child: CircleAvatar(
-          radius: 15.sp,
-          backgroundImage: NetworkImage(
-            image,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(50.r),
+        ),
+        color: Color.fromRGBO(26, 26, 26, 1),
+      ),
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: 8.h,
+          bottom: 6.h,
+          left: 12.w,
+          right: 12.w,
+        ),
+        child: MyText(
+          text,
+          overflow: TextOverflow.clip,
+          style: TextStyle(
+            fontSize: 13.sp,
+            height: 1.sp,
+            color: themeClolor,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),

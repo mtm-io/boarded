@@ -1,4 +1,6 @@
+import 'package:animations/animations.dart';
 import 'package:boarded/tabs/auth/screens/sign_in_screen.dart';
+import 'package:boarded/tabs/home/tamplates/room_card.dart';
 import 'package:boarded/tabs/rooms/screens/create_room.dart';
 import 'package:boarded/tabs/rooms/screens/edit_room_screen.dart';
 import 'package:boarded/tabs/rooms/screens/room_screen.dart';
