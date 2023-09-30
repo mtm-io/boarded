@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class Constants {
   static const cardColors = [
-    Color.fromRGBO(145, 155, 157, 1),
+    Color.fromRGBO(55, 125, 205, 1),
     Color.fromRGBO(211, 124, 97, 1),
     Color.fromRGBO(223, 212, 109, 1),
     Color.fromRGBO(127, 92, 217, 1),
@@ -43,5 +43,5 @@ class Constants {
 
   static const host = 'assets/images/Host.svg';
 
-  static const profileV2 = 'assets/images/Profile.svg';
+  static const profileV2 = 'assets/images/profile.svg';
 }

@@ -54,9 +54,9 @@ dependencies:
   xml2json: ^6.2.0
   flutter_keyboard_visibility: ^5.4.1
   rxdart: ^0.27.7
-  animations: ^2.0.7
+  animations: ^2.0.8
   intl: ^0.18.1
-  dotted_border: ^2.0.0+3
+  dotted_border: ^2.1.0
   
   
 
