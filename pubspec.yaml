@@ -56,7 +56,9 @@ dependencies:
   rxdart: ^0.27.7
   animations: ^2.0.8
   intl: ^0.18.1
-  dotted_border: ^2.1.0
+  dotted_border: ^2.0.0+3
+  file_picker: ^5.5.0
+
   
   
 

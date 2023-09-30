@@ -21,9 +21,4 @@ final loggedInRoute = RouteMap(routes: {
           name: route.pathParameters['name']!,
         ),
       ),
-  '/edit-room/:name': (routeData) => MaterialPage(
-        child: EditRoomScreen(
-          id: routeData.pathParameters['name']!,
-        ),
-      ),
 });

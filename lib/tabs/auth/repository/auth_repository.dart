@@ -54,7 +54,7 @@ class AuthRepository {
   /// logged in or not
   ///
   Stream<User?> get authStateChange {
-    print(1);
+    print('?????');
     // return _auth.idTokenChanges();
     return _auth.authStateChanges();
   }

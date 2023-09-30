@@ -198,10 +198,20 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                     const SizedBox(
                       height: 10.0,
                     ),
-                    TextField(
+                    TextFormField(
                       controller: roomAddressController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the address';
+                        } else if (value.length < 5) {
+                          return 'The address is too short';
+                        } else if (value.length > 100) {
+                          return 'The address is too long';
+                        }
+                        return null;
+                      },
                       decoration: const InputDecoration(
-                        hintText: '5th Avenue, 25',
+                        hintText: '6th Avenue, 68, OAE',
                         fillColor: Color.fromARGB(255, 255, 255, 255),
                         filled: true,
                         border: InputBorder.none,
@@ -210,7 +220,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Text('Date'),
+                    const Text('Date'),
                     const SizedBox(
                       height: 10.0,
                     ),

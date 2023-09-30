@@ -86,9 +86,9 @@ class _HostPageState extends ConsumerState<HostPage> {
                     itemCount: rooms.length,
                     itemBuilder: (BuildContext context, int index) {
                       final room = rooms[index];
-
-                      final String time = DateFormat('E, M.dd, HH:mm')
-                          .format(room.startDateTime);
+                      
+                      print(room.name);
+                      final String time = DateFormat('E, M.dd, HH:mm').format(room.startDateTime);
                       // TODO: remove
 
                       List<String> randomImages = [
@@ -149,6 +149,9 @@ class _HostPageState extends ConsumerState<HostPage> {
                                 const Duration(milliseconds: 200),
                           );
                         },
+
+                        cardColorNum: room.cardColor,
+                        key: UniqueKey(),
 
                       );
                     },

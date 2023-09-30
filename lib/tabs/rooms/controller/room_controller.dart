@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:boarded/core/common/snackbars.dart';
 import 'package:boarded/core/constants/constants.dart';
+import 'package:boarded/core/utils.dart';
 import 'package:boarded/models/board_games_model.dart';
 import 'package:boarded/models/room_model.dart';
 import 'package:boarded/tabs/auth/controller/auth_controller.dart';
@@ -28,7 +29,15 @@ final roomControllerProvider =
 });
 
 
-final getRoomByNameProvider = StreamProvider.family.autoDispose((ref, String id) {
+final getRoomByNameProvider = StreamProvider.autoDispose.family((ref, String id) {
+  print('create roomProvider');
+  ref.onDispose(() {
+    print('dispose roomProvider');
+  });
+  ref.onResume(() {
+    print('resume roomProvider');
+  });
+
   return ref.watch(roomControllerProvider.notifier).getRoomById(id);
 });
 
@@ -82,6 +91,36 @@ class RoomController extends StateNotifier<bool> {
   // Stream<Room> getRoomById(String id) {
   //   return _roomRepository.getRoomById(id);
   // }
+
+  void editRoom({
+    required String name,
+    required String description,
+    required String city,
+    required String address,
+    required List<String> games,
+    required DateTime startDateTime,
+    required BuildContext context,
+    required Room room,
+  }) async {
+    state = true;
+    room = room.copyWith(
+      name: name,
+      description: description,
+      city: city,
+      address: address,
+      games: games,
+      startDateTime: startDateTime,
+    );
+    final res = await _roomRepository.editRoom(room);
+    state = false;
+    res.fold(
+      (l) => showSnackBar(context, l.message),
+      (r) {
+        Routemaster.of(context).pop();
+        showSuccessSnackBar(context, 'Room updated successfully!');
+      },
+    );
+  }
 
   Future<List<BoardGames>> getAllCategory(String filter) async {
     final baseUrl =
