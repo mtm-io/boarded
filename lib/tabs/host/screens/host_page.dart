@@ -50,6 +50,7 @@ class _HostPageState extends ConsumerState<HostPage> {
                     itemCount: rooms.length,
                     itemBuilder: (BuildContext context, int index) {
                       final room = rooms[index];
+                      print(room.name);
                       final String time = DateFormat('E, M.dd, HH:mm').format(room.startDateTime);
                       // TODO: remove
                       List<String> randomImages = [
@@ -68,6 +69,7 @@ class _HostPageState extends ConsumerState<HostPage> {
                           navigateToRoom(context, room);
                         },
                         cardColorNum: room.cardColor,
+                        key: UniqueKey(),
                       );
                     },
                   ),

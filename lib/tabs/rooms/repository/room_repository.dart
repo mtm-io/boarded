@@ -39,6 +39,16 @@ class RoomRepository {
     return _rooms.doc(id).snapshots().map((event) => Room.fromMap(event.data() as Map<String, dynamic>));
   }
 
+  FutureVoid editRoom(Room room) async {
+    try {
+      return right(_rooms.doc(room.id).update(room.toMap()));
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
   CollectionReference get _rooms => _firestore.collection(FirebaseConstants.roomsCollection);
   // CollectionReference get _games => _firestore.collection(FirebaseConstants.gamesCollection);
 
