@@ -7,15 +7,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class RoomScreen extends ConsumerWidget {
+class RoomScreen extends ConsumerStatefulWidget {
   final String name;
   const RoomScreen({
     required this.name,
   });
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _RoomScreenState();
+}
+
+class _RoomScreenState extends ConsumerState<RoomScreen> {
+  late String name = widget.name;
+  final roomNameController = TextEditingController();
+  bool isEditing = false;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final user = ref.watch(userProvider)!;
+    print(user);
     return Container(
         child: ref.watch(getRoomByNameProvider(name)).when(
               data: (room) => Scaffold(
@@ -25,7 +34,25 @@ class RoomScreen extends ConsumerWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(room.address),
+                    TextFormField(
+                      controller: roomNameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the name';
+                        } else if (value.length < 5) {
+                          return 'The name is too short';
+                        } else if (value.length > 20) {
+                          return 'The name is too long';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Board evening @ ArtDecoCowork',
+                        fillColor: Color.fromARGB(255, 255, 255, 255),
+                        filled: true,
+                        border: InputBorder.none,
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -37,14 +64,16 @@ class RoomScreen extends ConsumerWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    room.admin.contains(user.uid)
+                    isEditing
                         ? ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Edit'),
+                            onPressed: () => {},
+                            child: const Text('Save'),
                           )
                         : ElevatedButton(
-                            onPressed: () {},
-                            child: Text(room.members.contains(user.uid) ? 'Joined' : 'Join'),
+                            onPressed: () {
+                              isEditing = true;
+                            },
+                            child: const Text('Edit'),
                           ),
                   ],
                 ),
