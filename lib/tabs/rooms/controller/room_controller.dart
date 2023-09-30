@@ -18,7 +18,8 @@ final userRoomsProvider = StreamProvider.autoDispose((ref) {
   return roomController.getUserRooms();
 });
 
-final roomControllerProvider = StateNotifierProvider<RoomController, bool>((ref) {
+final roomControllerProvider =
+    StateNotifierProvider<RoomController, bool>((ref) {
   final roomRepository = ref.watch(roomRepositoryProvider);
   return RoomController(
     roomRepository: roomRepository,
@@ -26,9 +27,11 @@ final roomControllerProvider = StateNotifierProvider<RoomController, bool>((ref)
   );
 });
 
+
 final getRoomByNameProvider = StreamProvider.family.autoDispose((ref, String id) {
   return ref.watch(roomControllerProvider.notifier).getRoomById(id);
 });
+
 
 class RoomController extends StateNotifier<bool> {
   final RoomRepository _roomRepository;
@@ -38,8 +41,8 @@ class RoomController extends StateNotifier<bool> {
         _ref = ref,
         super(false);
 
-  void createRoom(String name, String description, List<String> games, DateTime startDateTime, String address,
-      BuildContext context) async {
+  void createRoom(String name, String description, List<String> games,
+      DateTime startDateTime, String address, BuildContext context) async {
     state = true;
     // Beta Dummy veritification
     // TODO: make a valid verification with custom errors for every field
@@ -73,15 +76,17 @@ class RoomController extends StateNotifier<bool> {
 
   Stream<List<Room>> getUserRooms() {
     final uid = _ref.read(userProvider)!.uid;
+    //print("HEEEEEAAAAARRRRR:   " + uid);
     return _roomRepository.getUserRooms(uid);
   }
 
-  Stream<Room> getRoomById(String id) {
-    return _roomRepository.getRoomById(id);
-  }
+  // Stream<Room> getRoomById(String id) {
+  //   return _roomRepository.getRoomById(id);
+  // }
 
   Future<List<BoardGames>> getAllCategory(String filter) async {
-    final baseUrl = "https://api.geekdo.com/xmlapi2/search?query=$filter&type=boardgame&exact=0";
+    final baseUrl =
+        "https://api.geekdo.com/xmlapi2/search?query=$filter&type=boardgame&exact=0";
     // const hotUrl = "https://api.geekdo.com/xmlapi2/hot?type=boardgame";
     // final url = filter.isEmpty ? hotUrl : baseUrl;
 
@@ -117,7 +122,8 @@ class RoomController extends StateNotifier<bool> {
         // }
       }
       items = items.toSet().toList();
-      items.sort((a, b) => a.name.split(' ').length.compareTo(b.name.split(' ').length));
+      items.sort((a, b) =>
+          a.name.split(' ').length.compareTo(b.name.split(' ').length));
       print(items.length);
       return items;
     } else {
