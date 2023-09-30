@@ -35,11 +35,16 @@ class MyApp extends ConsumerStatefulWidget {
 
 class _MyAppState extends ConsumerState<MyApp> {
   UserModel? userModel;
+
   // Get current user and save it's state to userModel.
   void getData(WidgetRef ref, User data) async {
     userModel = await ref.watch(authControllerProvider.notifier).getUserData(data.uid).first;
-    ref.read(userProvider.notifier).update((state) => userModel);
-    setState(() {});
+    final localModel = ref.read(userProvider.notifier);
+    if (userModel != localModel.state) {
+      localModel.update((state) => userModel);
+      setState(() {});
+      print('Updated user model');
+    }
   }
 
   @override
