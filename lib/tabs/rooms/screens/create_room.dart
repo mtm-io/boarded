@@ -16,10 +16,12 @@ class CreateRoomScreen extends ConsumerStatefulWidget {
   const CreateRoomScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CreateRoomScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CreateRoomScreenState();
 }
 
-class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with SingleTickerProviderStateMixin {
+class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 700),
     reverseDuration: const Duration(milliseconds: 500),
@@ -43,7 +45,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
   final roomDecriptionController = TextEditingController();
   final roomAddressController = TextEditingController();
   final roomDateController = TextEditingController();
-  final _popupCustomValidationKey = GlobalKey<DropdownSearchState<BoardGames>>();
+  final _popupCustomValidationKey =
+      GlobalKey<DropdownSearchState<BoardGames>>();
 
   late StreamSubscription<bool> keyboardSubscription;
   FocusNode myFocusNode = FocusNode();
@@ -54,7 +57,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
 
     var keyboardVisibilityController = KeyboardVisibilityController();
 
-    keyboardSubscription = keyboardVisibilityController.onChange.listen((bool visible) {
+    keyboardSubscription =
+        keyboardVisibilityController.onChange.listen((bool visible) {
       if (!visible) {
         myFocusNode.unfocus();
       }
@@ -84,7 +88,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
   }
 
   Future<List<BoardGames>> getData(filter) async {
-    var boardGamesList = await ref.read(roomControllerProvider.notifier).getAllCategory(filter);
+    var boardGamesList =
+        await ref.read(roomControllerProvider.notifier).getAllCategory(filter);
     return boardGamesList;
   }
 
@@ -146,7 +151,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
                         return null;
                       },
                       decoration: const InputDecoration(
-                        hintText: 'A fun evening playing Monopoly, bring friends!',
+                        hintText:
+                            'A fun evening playing Monopoly, bring friends!',
                         fillColor: Color.fromARGB(255, 255, 255, 255),
                         filled: true,
                         border: InputBorder.none,
@@ -223,7 +229,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please choose the date';
-                          } else if (roomDateTime.compareTo(DateTime.now()) < 0) {
+                          } else if (roomDateTime.compareTo(DateTime.now()) <
+                              0) {
                             return 'The date can\'t be earlier than realtime';
                           }
                           return null;
@@ -244,11 +251,14 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
                           );
                           if (pickedDate != null) {
                             print(pickedDate);
-                            String formattedDate = DateFormat('dd.MM.yyyy @ HH:mm').format(pickedDate);
+                            String formattedDate =
+                                DateFormat('dd.MM.yyyy @ HH:mm')
+                                    .format(pickedDate);
                             print(formattedDate);
 
                             setState(() {
-                              roomDateController.text = formattedDate; //set foratted date to TextField value.
+                              roomDateController.text =
+                                  formattedDate; //set foratted date to TextField value.
                               roomDateTime = pickedDate;
                             });
                           } else {
@@ -265,7 +275,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
                       ),
                       child: const Text('Create'),
                     )
@@ -288,7 +299,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
         }
         return null;
       },
-      onChanged: (List<BoardGames> items) => {boardGamesList = items.map((game) => game.name).toList()},
+      onChanged: (List<BoardGames> items) =>
+          {boardGamesList = items.map((game) => game.name).toList()},
       popupProps: PopupPropsMultiSelection.modalBottomSheet(
         fit: FlexFit.loose,
         selectionWidget: (context, item, isSelected) {
@@ -304,7 +316,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
           focusNode: myFocusNode,
           cursorColor: Color.fromARGB(31, 116, 115, 115),
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 4.sp, horizontal: 16.sp),
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 4.sp, horizontal: 16.sp),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20.r),
@@ -369,7 +382,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
                                 ),
                               ),
                               onTap: () {
-                                _popupCustomValidationKey.currentState?.popupOnValidate();
+                                _popupCustomValidationKey.currentState
+                                    ?.popupOnValidate();
                               },
                             ),
                           ),
@@ -388,7 +402,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
                                 ),
                               ),
                               onTap: () {
-                                _popupCustomValidationKey.currentState?.closeDropDownSearch();
+                                _popupCustomValidationKey.currentState
+                                    ?.closeDropDownSearch();
                               },
                             ),
                           ),
@@ -422,7 +437,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
     );
   }
 
-  Widget _popupItemBuilder(BuildContext context, BoardGames item, bool isSelected) {
+  Widget _popupItemBuilder(
+      BuildContext context, BoardGames item, bool isSelected) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       //decoration: !isSelected
@@ -438,7 +454,10 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> with Single
           item.name,
           style: !isSelected
               ? TextStyle(color: Colors.black, fontSize: 13.sp)
-              : TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 13.sp),
+              : TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13.sp),
         ),
 
         // subtitle: Text(item.createdAt.toString()),
