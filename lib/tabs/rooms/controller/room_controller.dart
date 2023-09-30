@@ -13,7 +13,7 @@ import 'package:routemaster/routemaster.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml2json/xml2json.dart';
 
-final userRoomsProvider = StreamProvider.autoDispose((ref) {
+final userRoomsProvider = StreamProvider((ref) {
   final roomController = ref.watch(roomControllerProvider.notifier);
   return roomController.getUserRooms();
 });
@@ -21,17 +21,12 @@ final userRoomsProvider = StreamProvider.autoDispose((ref) {
 final roomControllerProvider =
     StateNotifierProvider<RoomController, bool>((ref) {
   final roomRepository = ref.watch(roomRepositoryProvider);
-  return RoomController(
-    roomRepository: roomRepository,
-    ref: ref,
-  );
+  return RoomController(roomRepository: roomRepository, ref: ref);
 });
 
-
-final getRoomByNameProvider = StreamProvider.family.autoDispose((ref, String id) {
-  return ref.watch(roomControllerProvider.notifier).getRoomById(id);
-});
-
+//final getRoomByNameProvider = StreamProvider.family((ref, String id) {
+//  return ref.watch(roomControllerProvider.notifier).getRoomById(id);
+//});
 
 class RoomController extends StateNotifier<bool> {
   final RoomRepository _roomRepository;

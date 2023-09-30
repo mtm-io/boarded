@@ -22,14 +22,7 @@ final authControllerProvider = StateNotifierProvider<AuthController, bool>(
 /// Provides a Stream of AuthStateChanges
 ///from the AuthRepository
 final authStateChangeProvider = StreamProvider((ref) {
-  print('create testProvider');
   final authController = ref.watch(authControllerProvider.notifier);
-  ref.onDispose(() {
-    print('dispose testProvider');
-  });
-  ref.onResume(() {
-    print('resume testProvider');
-  });
   return authController.authStateChange;
 });
 
@@ -59,7 +52,6 @@ class AuthController extends StateNotifier<bool> {
   ///
 
   Stream<User?> get authStateChange {
-    print(2);
     return _authRepository.authStateChange;
   }
 
