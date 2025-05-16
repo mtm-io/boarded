@@ -26,21 +26,30 @@ class TokenController extends _$TokenController {
 
   Future<void> register(String email, String password) async {
     state = const AsyncValue.loading();
-
+    final secureStorage = ref.read(secureStorageProvider);
     try {
       final response = await ref
           .read(dioProvider)
           .post(
-            '$baseUrl/fake_register',
+            '$baseUrl/register',
             data: {'username': email, 'password': password},
-            options: Options(headers: {'Content-Type': 'application/json'}),
+            options: Options(
+              headers: {'Content-Type': 'application/json'},
+              validateStatus: (status) => true,
+            ),
+
             //options: Options(contentType: Headers.formUrlEncodedContentType),
           );
 
       if (response.statusCode == 200) {
         final data =
             response.data is String ? jsonDecode(response.data) : response.data;
+        final token = data['access_token'];
+        await secureStorage.write(key: 'token', value: token);
+        state = AsyncValue.data(token);
         log('Registration success: $data');
+      } else if (response.statusCode == 400) {
+        throw Exception('User already exists');
       } else {
         throw Exception('Invalid credentials');
       }

@@ -1,20 +1,19 @@
 import 'dart:developer';
 
 import 'package:boarded/models/user.dart';
-import 'package:boarded/pages/register_page.dart';
 import 'package:boarded/providers/token_provider.dart';
 import 'package:boarded/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends ConsumerStatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
+  ConsumerState<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends ConsumerState<LoginPage> {
+class _RegisterPageState extends ConsumerState<RegisterPage> {
   late TextEditingController _passwordController;
   late TextEditingController _usernameController;
 
@@ -43,7 +42,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             children: [
               TextField(
                 controller: _usernameController,
-                obscureText: true,
+
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Username',
@@ -60,22 +59,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               ),
               ElevatedButton(
                 onPressed:
-                    () => ref
-                        .read(tokenControllerProvider.notifier)
-                        .login(
-                          _usernameController.text,
-                          _passwordController.text,
-                        ),
-                child: const Text("Login"),
-              ),
-              ElevatedButton(
-                onPressed:
-                    () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const RegisterPage(),
-                      ),
-                    ),
-                child: const Text("Register new user ->"),
+                    () => {
+                      ref
+                          .read(tokenControllerProvider.notifier)
+                          .register(
+                            _usernameController.text,
+                            _passwordController.text,
+                          ),
+                      Navigator.pop(context),
+                    },
+                child: const Text("Register"),
               ),
             ],
           ),

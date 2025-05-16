@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:boarded/models/card.dart';
 import 'package:boarded/models/user.dart';
 import 'package:boarded/providers/cards_provider.dart';
+import 'package:boarded/providers/token_provider.dart';
 import 'package:boarded/providers/user_provider.dart';
 import 'package:boarded/ui/l_card.dart';
 import 'package:flutter/material.dart';
@@ -20,16 +21,27 @@ class HomePage extends ConsumerWidget {
         child: cards.when(
           data:
               (data) => Column(
-                children:
-                    data
-                        .map(
-                          (e) => LCard(
-                            title: e?.title ?? "",
-                            startDate: e?.startDate,
-                            isActive: e?.isActive ?? false,
-                          ),
-                        )
-                        .toList(),
+                children: [
+                  Column(
+                    children:
+                        data
+                            .map(
+                              (e) => LCard(
+                                title: e?.title ?? "",
+                                startDate: e?.startDate,
+                                isActive: e?.isActive ?? false,
+                              ),
+                            )
+                            .toList(),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed:
+                        () =>
+                            ref.read(tokenControllerProvider.notifier).logout(),
+                    child: const Text("Logout"),
+                  ),
+                ],
               ),
           error: (error, stack) {
             log('CardsController error: $error');
