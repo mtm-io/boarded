@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:boarded/models/user.dart';
+import 'package:boarded/pages/entry_page.dart';
 import 'package:boarded/providers/token_provider.dart';
 import 'package:boarded/providers/user_provider.dart';
 import 'package:dio/dio.dart';
@@ -25,30 +26,6 @@ class MainApp extends ConsumerStatefulWidget {
 class _MainAppState extends ConsumerState<MainApp> {
   @override
   Widget build(BuildContext context) {
-    AsyncValue<UserModel?> user = ref.watch(userControllerProvider);
-    // log('user: $user');
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () => {setState(() {})},
-                child: const Text('Login'),
-              ),
-              user.when(
-                data: (value) => Text('User: ${value?.username}'),
-                loading: () => const CircularProgressIndicator(),
-                error: (error, stack) {
-                  log('UserController error: $error');
-                  return const Text('Oops, something unexpected happened');
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    return MaterialApp(home: EntryPage());
   }
 }

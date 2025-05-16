@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:boarded/main.dart';
 import 'package:boarded/providers/secure_storage_provider.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart' as ss;
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'token_provider.g.dart';
@@ -17,26 +17,25 @@ final dioProvider = Provider<Dio>((ref) {
 
 @riverpod
 class TokenController extends _$TokenController {
-  late final ss.FlutterSecureStorage _secureStorage;
-  late final Dio _dio;
   @override
   Future<String?> build() async {
-    _secureStorage = ref.read(secureStorageProvider);
-    _dio = ref.read(dioProvider);
+    final secureStorage = ref.read(secureStorageProvider);
 
-    return await _secureStorage.read(key: 'token');
+    return await secureStorage.read(key: 'token');
   }
 
   Future<void> register(String email, String password) async {
     state = const AsyncValue.loading();
 
     try {
-      final response = await _dio.post(
-        '$baseUrl/fake_register',
-        data: {'username': email, 'password': password},
-        options: Options(headers: {'Content-Type': 'application/json'}),
-        //options: Options(contentType: Headers.formUrlEncodedContentType),
-      );
+      final response = await ref
+          .read(dioProvider)
+          .post(
+            '$baseUrl/fake_register',
+            data: {'username': email, 'password': password},
+            options: Options(headers: {'Content-Type': 'application/json'}),
+            //options: Options(contentType: Headers.formUrlEncodedContentType),
+          );
 
       if (response.statusCode == 200) {
         final data =
@@ -53,20 +52,22 @@ class TokenController extends _$TokenController {
 
   Future<void> login(String email, String password) async {
     state = const AsyncValue.loading();
-
+    final secureStorage = ref.read(secureStorageProvider);
     try {
-      final response = await _dio.post(
-        '$baseUrl/token',
-        data: {'username': email, 'password': password},
-        options: Options(contentType: Headers.formUrlEncodedContentType),
-      );
+      final response = await ref
+          .read(dioProvider)
+          .post(
+            '$baseUrl/token',
+            data: {'username': email, 'password': password},
+            options: Options(contentType: Headers.formUrlEncodedContentType),
+          );
 
       if (response.statusCode == 200) {
         final data =
             response.data is String ? jsonDecode(response.data) : response.data;
         final token = data['access_token'];
 
-        await _secureStorage.write(key: 'token', value: token);
+        await secureStorage.write(key: 'token', value: token);
         state = AsyncValue.data(token);
         log('Login success: $token');
       } else {
@@ -79,7 +80,8 @@ class TokenController extends _$TokenController {
   }
 
   Future<void> logout() async {
-    await _secureStorage.delete(key: 'token');
+    final secureStorage = ref.read(secureStorageProvider);
+    await secureStorage.delete(key: 'token');
     state = const AsyncValue.data(null);
   }
 }

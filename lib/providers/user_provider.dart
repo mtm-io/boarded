@@ -12,17 +12,18 @@ part 'user_provider.g.dart';
 
 @riverpod
 class UserController extends _$UserController {
-  late final Dio _dio;
   @override
   Future<UserModel?> build() async {
-    _dio = ref.read(dioProvider);
-    log('build');
+    Dio dio = ref.read(dioProvider);
     final token = await ref.watch(tokenControllerProvider.future);
     if (token == null) return null;
     log('token: $token');
-    final response = await _dio.get(
-      '$baseUrl/user/me',
-      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    final response = await dio.get(
+      '$baseUrl/users/me',
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        validateStatus: (status) => true,
+      ),
     );
     log('response: $response');
     if (response.statusCode == 200) {
