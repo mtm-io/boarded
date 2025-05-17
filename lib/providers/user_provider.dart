@@ -8,6 +8,8 @@ import 'package:boarded/providers/token_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'dio_provider.dart';
+
 part 'user_provider.g.dart';
 
 @riverpod
@@ -22,7 +24,7 @@ class UserController extends _$UserController {
       '$baseUrl/users/me',
       options: Options(
         headers: {'Authorization': 'Bearer $token'},
-        validateStatus: (status) => true,
+        //validateStatus: (status) => true,
       ),
     );
     log('response: $response');

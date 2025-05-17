@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:boarded/main.dart';
 import 'package:boarded/models/card.dart';
 import 'package:boarded/models/user.dart';
+import 'package:boarded/providers/dio_provider.dart';
 import 'package:boarded/providers/token_provider.dart';
 import 'package:boarded/providers/user_provider.dart';
 import 'package:dio/dio.dart';
