@@ -77,6 +77,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ),
                 child: const Text("Register new user ->"),
               ),
+              ElevatedButton(
+                onPressed:
+                    () async => {
+                      await ref
+                          .read(tokenControllerProvider.notifier)
+                          .loginWithGoogle(),
+                    },
+                child: const Text("Google"),
+              ),
             ],
           ),
         ),

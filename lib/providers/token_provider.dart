@@ -5,6 +5,7 @@ import 'package:boarded/main.dart';
 import 'package:boarded/providers/dio_provider.dart';
 import 'package:boarded/providers/secure_storage_provider.dart';
 import 'package:dio/dio.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -70,6 +71,43 @@ class TokenController extends _$TokenController {
             data: {'username': email, 'password': password},
             options: Options(contentType: Headers.formUrlEncodedContentType),
           );
+
+      if (response.statusCode == 200) {
+        final data =
+            response.data is String ? jsonDecode(response.data) : response.data;
+        final accessToken = data['access_token'];
+        final refreshToken = data['refresh_token'];
+        await secureStorage.write(key: accessTokenKey, value: accessToken);
+        await secureStorage.write(key: refreshTokenKey, value: refreshToken);
+        state = AsyncValue.data(accessToken);
+        log(
+          'Login success! Access token: $accessToken, Refresh token: $refreshToken',
+        );
+      } else {
+        throw Exception('Invalid credentials');
+      }
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+      log('Login failed: $e');
+    }
+  }
+
+  Future<void> loginWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      serverClientId:
+          '615112230301-vid38eo6tkpu2bps9h648t2s8i7b46p2.apps.googleusercontent.com',
+      scopes: ['email'],
+    );
+    googleSignIn.signOut();
+    final googleUser = await googleSignIn.signIn();
+    final googleAuth = await googleUser?.authentication;
+    final idToken = googleAuth?.idToken;
+    log('Google ID token: $idToken');
+    try {
+      final secureStorage = ref.read(secureStorageProvider);
+      final response = await ref
+          .read(dioProvider)
+          .post('$baseUrl/auth/google', data: {'id_token': idToken});
 
       if (response.statusCode == 200) {
         final data =

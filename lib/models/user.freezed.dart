@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserModel {
 
- String get username; String? get id; String? get email; String? get token;
+ String get username; String? get id; String? get email; String? get name; String? get picture;
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $UserModelCopyWith<UserModel> get copyWith => _$UserModelCopyWithImpl<UserModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.username, username) || other.username == username)&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.token, token) || other.token == token));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.username, username) || other.username == username)&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.picture, picture) || other.picture == picture));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,username,id,email,token);
+int get hashCode => Object.hash(runtimeType,username,id,email,name,picture);
 
 @override
 String toString() {
-  return 'UserModel(username: $username, id: $id, email: $email, token: $token)';
+  return 'UserModel(username: $username, id: $id, email: $email, name: $name, picture: $picture)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $UserModelCopyWith<$Res>  {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) _then) = _$UserModelCopyWithImpl;
 @useResult
 $Res call({
- String username, String? id, String? email, String? token
+ String username, String? id, String? email, String? name, String? picture
 });
 
 
@@ -66,12 +66,13 @@ class _$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? username = null,Object? id = freezed,Object? email = freezed,Object? token = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? username = null,Object? id = freezed,Object? email = freezed,Object? name = freezed,Object? picture = freezed,}) {
   return _then(_self.copyWith(
 username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String?,token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,picture: freezed == picture ? _self.picture : picture // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -83,13 +84,14 @@ as String?,
 @JsonSerializable()
 
 class _UserModel implements UserModel {
-  const _UserModel({required this.username, this.id, this.email, this.token});
+  const _UserModel({required this.username, this.id, this.email, this.name, this.picture});
   factory _UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
 @override final  String username;
 @override final  String? id;
 @override final  String? email;
-@override final  String? token;
+@override final  String? name;
+@override final  String? picture;
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
@@ -104,16 +106,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.username, username) || other.username == username)&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.token, token) || other.token == token));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.username, username) || other.username == username)&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.picture, picture) || other.picture == picture));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,username,id,email,token);
+int get hashCode => Object.hash(runtimeType,username,id,email,name,picture);
 
 @override
 String toString() {
-  return 'UserModel(username: $username, id: $id, email: $email, token: $token)';
+  return 'UserModel(username: $username, id: $id, email: $email, name: $name, picture: $picture)';
 }
 
 
@@ -124,7 +126,7 @@ abstract mixin class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Re
   factory _$UserModelCopyWith(_UserModel value, $Res Function(_UserModel) _then) = __$UserModelCopyWithImpl;
 @override @useResult
 $Res call({
- String username, String? id, String? email, String? token
+ String username, String? id, String? email, String? name, String? picture
 });
 
 
@@ -141,12 +143,13 @@ class __$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? username = null,Object? id = freezed,Object? email = freezed,Object? token = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? username = null,Object? id = freezed,Object? email = freezed,Object? name = freezed,Object? picture = freezed,}) {
   return _then(_UserModel(
 username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String?,token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,picture: freezed == picture ? _self.picture : picture // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

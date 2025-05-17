@@ -10,7 +10,8 @@ abstract class UserModel with _$UserModel {
     required String username,
     String? id,
     String? email,
-    String? token,
+    String? name,
+    String? picture,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, Object?> json) =>
